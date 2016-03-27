@@ -3,7 +3,7 @@
     angular.module('app').config(function ($routeProvider) {
         $routeProvider
             .when('/', {
-                redirectTo: '/login'
+                redirectTo: '/dashboard'
             })
             .when('/login', {
                 controller: 'LoginCtrl',

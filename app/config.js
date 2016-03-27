@@ -4,26 +4,34 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS) {
-    var ref_users = new Firebase(APP_SETTINGS.FIREBASE_URL + '/users');
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS) { debugger;
+    if ('serviceWorker' in navigator) {
+      console.log('GOOD NEWS: this browser support service worker');
+      navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
+      .then(function (registration) {
+        var serviceWorker;
+        if (registration.installing) {
+          serviceWorker = registration.installing;
+        } else if (registration.waiting) {
+          serviceWorker = registration.waiting;
+        } else if (registration.active) {
+          serviceWorker = registration.active;
+        }
 
-    $rootScope.user = null;
+        if (serviceWorker) {
+          console.log("ServiceWorker phase:", serviceWorker.state);
 
-    ref_users.on("value", function(snapshot) {
-      $rootScope.users = [];
-      snapshot.forEach(function(childSnapshot) {
-        $rootScope.users.push(childSnapshot.val());
+          serviceWorker.addEventListener('statechange', function (e) {
+            console.log("ServiceWorker phase:", e.target.state);
+          });
+        }
+      }).catch(function (err) {
+        console.log('ServiceWorker registration failed: ', err);
       });
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
 
-    $rootScope.$on("$routeChangeStart", function (event, next, current) {
-      if (!$rootScope.user) {
-        $location.path("/login");
-      }
-    });
-
+    } else {
+      console.log("this browser does NOT support service worker");
+    }
   });
 
   angular.module('app')
