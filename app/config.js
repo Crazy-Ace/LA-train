@@ -4,7 +4,7 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS) { debugger;
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS) {
     if ('serviceWorker' in navigator) {
       console.log('GOOD NEWS: this browser support service worker');
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
@@ -38,7 +38,6 @@
       .factory('appConfig', [appConfig]);
 
 
-
   function appConfig() {
       var pageTransitionOpts = [
           {
@@ -58,16 +57,16 @@
       var date = new Date();
       var year = date.getFullYear();
       var main = {
-          brand: 'Estagiário',
+          brand: 'LA-Tram',
           name: 'Lisa',
           year: year,
           layout: 'wide',                                 // 'boxed', 'wide'
           menu: 'vertical',                               // 'horizontal', 'vertical'
-          isMenuCollapsed: false,                         // true, false
+          isMenuCollapsed: true,                         // true, false
           fixedHeader: true,                              // true, false
-          fixedSidebar: true,                             // true, false
+          fixedSidebar: false,                             // true, false
           pageTransition: pageTransitionOpts[0],          // 0, 1, 2, 3... and build your own
-          skin: '11'                                      // 11,12,13,14,15,16; 21,22,23,24,25,26; 31,32,33,34,35,36
+          skin: '25'                                      // 11,12,13,14,15,16; 21,22,23,24,25,26; 31,32,33,34,35,36
       };
       var color = {
           primary:    '#31C0BE',
@@ -85,4 +84,14 @@
           color: color
       }
   }
+
+  /*angular.module('app').controller('HeaderCtrl', ['$scope']);
+
+  function HeaderCtrl($scope) {
+
+    if(navigator.onLine)
+      $scope.connection = 'perfect';
+    else
+      $scope.connection = 'offline';
+  }*/
 })();
