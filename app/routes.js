@@ -1,6 +1,7 @@
 (function(){
     'use strict';
-    angular.module('app').config(function ($routeProvider) {
+    angular.module('app').config(function ( $routeProvider) {
+
         $routeProvider
             .when('/', {
                 redirectTo: '/dashboard'
