@@ -5,8 +5,15 @@
   DashboardCtrl.$inject = ['$scope'];
 
   function DashboardCtrl($scope) {
-      $scope.teste = function(){
-        var teste;
+      $scope.departure = false;
+      $scope.arrival = false;
+
+      $scope.pointA = function(){
+        $scope.departure = !$scope.departure;
+      }
+
+      $scope.pointB = function(){
+        $scope.arrival = !$scope.arrival;
       }
   }
 })();

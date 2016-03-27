@@ -57,7 +57,7 @@
       var date = new Date();
       var year = date.getFullYear();
       var main = {
-          brand: 'LA-Tram',
+          brand: 'LA-Train',
           name: 'Lisa',
           year: year,
           layout: 'wide',                                 // 'boxed', 'wide'
