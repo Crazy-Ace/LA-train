@@ -4,7 +4,7 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS) {
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit, jsonFactory) {
     if ('serviceWorker' in navigator) {
       console.log('GOOD NEWS: this browser support service worker');
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
@@ -32,6 +32,17 @@
     } else {
       console.log("this browser does NOT support service worker");
     }
+
+
+      var data = jsonFactory.agency();
+      var objectStore = db.createObjectStore("agency");
+      var transaction = db.transaction([STORE], IDBTransaction.READ_WRITE);
+      var objstore = transaction.objectStore(STORE);
+
+      for (i = 0; i < data.length; i++) {
+          objstore.put(data[i]);
+      }
+
   });
 
   angular.module('app')
