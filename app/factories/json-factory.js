@@ -13,7 +13,7 @@
                 agency =  data;
               }
             });
-            return JSON.stringify(agency);
+            return agency;
           },
           sayGoodbye: function(text){
               return "Factory says \"Goodbye " + text + "\"";

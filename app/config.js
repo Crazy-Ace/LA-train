@@ -4,7 +4,7 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit, jsonFactory) {
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, jsonFactory) {
     if ('serviceWorker' in navigator) {
       console.log('GOOD NEWS: this browser support service worker');
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
@@ -33,7 +33,126 @@
       console.log("this browser does NOT support service worker");
     }
 
+    if (!window.indexedDB)
+        console.log('Your browser does not support Indexed Data Base');
 
+
+
+
+
+          var IDBSetting = {
+              name: "indexedDBName",
+              version: 1,
+              tables: [{
+                  tableName: "angecy",
+                  keyPath: "seq",
+                  autoIncrement: true,
+                  index: ["agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone"],
+                  unique: [false, false, false, false, false, false]
+              }]
+          };
+
+          console.log("indexeDB init");
+
+    var req = indexedDB.open(IDBSetting.name, IDBSetting.version);
+
+    req.onsuccess = function(event) {
+        console.log("indexedDB open success");
+    };
+
+    req.onerror = function(event) {
+        console.log("indexed DB open fail");
+    };
+
+    //callback run init or versionUp
+    req.onupgradeneeded = function(event) {
+        console.log("init onupgradeneeded indexedDB ");
+        var db = event.target.result;
+
+        for (var i in IDBSetting.tables) {
+            var OS = db.createObjectStore(IDBSetting.tables[i].tableName, {
+                keyPath: IDBSetting.tables[i].keyPath,
+                autoIncrement: IDBSetting.tables[i].autoIncrement
+            });
+
+            for (var j in IDBSetting.tables[i].index) {
+                OS.createIndex(IDBSetting.tables[i].index[j], IDBSetting.tables[i].index[j], {
+                    unique: IDBSetting.tables[i].unique[j]
+                });
+            }
+        }
+    }
+
+    var IDBFuncSet = {
+    //write
+    addData: function(table, data) {
+        var req = indexedDB.open(IDBSetting.name, IDBSetting.version);
+
+
+
+        req.onsuccess = function(event) {
+            try {
+                console.log("addData indexedDB open success");
+                var db = req.result;
+                var transaction = db.transaction([table], "readwrite");
+                var objectStore = transaction.objectStore(table);
+                var objectStoreRequest = objectStore.add(data);
+            } catch (e) {
+                console.log("addDataFunction table or data null error");
+                console.log(e);
+            }
+
+            objectStoreRequest.onsuccess = function(event) {
+                console.log("Call data Insert success");
+            }
+            objectStoreRequest.onerror = function(event) {
+                console.log("addData error");
+            }
+        };
+
+        req.onerror = function(event) {
+            console.log("addData indexed DB open fail");
+        };
+    }
+}
+
+var agency = jsonFactory.agency();
+for(var i in agency){
+   IDBFuncSet.addData("agency", agency[i]);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*var request = indexedDB.open("LATrain", 2);
+
+    request.onupgradeneeded = function(event) {
+
+      var db = event.target.result;
+      var objectStore = db.createObjectStore("agency", { autoIncrement : true });
+      objectStore.createIndex("agency_id", "agency_id", { unique: true });
+      const angecy = jsonFactory.agency();
+      objectStore.transaction.oncomplete = function(event) {
+        var agencyObjectStore = db.transaction("agency", "readwrite").objectStore("agency");
+        for (var i in angecy) {
+          agencyObjectStore.add(angecy[i]);
+        }
+      }
+    }*/
+
+/*
       var data = jsonFactory.agency();
       var objectStore = db.createObjectStore("agency");
       var transaction = db.transaction([STORE], IDBTransaction.READ_WRITE);
@@ -42,7 +161,7 @@
       for (i = 0; i < data.length; i++) {
           objstore.put(data[i]);
       }
-
+*/
   });
 
   angular.module('app')
