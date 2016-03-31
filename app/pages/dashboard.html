@@ -7,11 +7,10 @@
             <div class="tl-body">
                 <div class="tl-entry time-btn">
                     <div class="tl-time">{{stationA}}</div>
-                    <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info" ng-click="pointA()"><i>A</i></a>
+                    <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointA()">A</a>
                     <!-- talvez se trocar essa div de cima por um butao arredenodado, a ideia e chamar um formulario quando clicado-->
 
                     <div class="tl-content" ng-show="departure">
-                        <h4 class="tl-tile text-primary">Departure Train Station</h4>
                         <form role="form" class="ng-pristine ng-valid">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Train Station</label><br>
@@ -68,9 +67,8 @@
               <div class="tl-body">
                   <div class="tl-entry">
                       <div class="tl-time">{{stationB}}</div>
-                      <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info" ng-click="pointB()"><i>B</i></a>
+                      <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointB()"><i>B</i></a>
                       <div class="tl-content" ng-show="arrival">
-                          <h4 class="tl-tile text-primary">Arrival Train Station</h4>
                           <form role="form" class="ng-pristine ng-valid">
                               <div class="form-group">
                                   <label for="exampleInputEmail1">Train Station</label><br>

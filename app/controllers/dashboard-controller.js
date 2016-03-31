@@ -7,6 +7,8 @@
   function DashboardCtrl($scope) {
       $scope.departure = false;
       $scope.arrival = false;
+      $scope.stationB = 'Departure Train Station';
+      $scope.stationA = 'Arrival Train Station';
 
       $scope.pointA = function(){
         $scope.departure = !$scope.departure;

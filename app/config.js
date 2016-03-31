@@ -39,7 +39,7 @@
 
 
 
-
+/*
           var IDBSetting = {
               name: "indexedDBName",
               version: 1,
@@ -121,7 +121,7 @@ for(var i in agency){
    IDBFuncSet.addData("agency", agency[i]);
 }
 
-
+*/
 
 
 

@@ -1,3 +1,8 @@
 .time-btn{
     padding-bottom: 50px
 }
+
+.btn-pointAB {
+    cursor: pointer;
+    text-decoration: none !important;
+}

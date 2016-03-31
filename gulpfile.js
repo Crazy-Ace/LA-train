@@ -16,7 +16,11 @@ gulp.task('serve', function() {
             routes: {
                 "/bower_components": "bower_components"
             }
-        }
+        },
+        ui: {
+            port: 8080
+        },
+        browser: "google chrome canary"
     });
 
     console.log('## servidor iniciado ##');
