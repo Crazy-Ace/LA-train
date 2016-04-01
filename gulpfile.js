@@ -17,9 +17,6 @@ gulp.task('serve', function() {
                 "/bower_components": "bower_components"
             }
         },
-        ui: {
-            port: 8080
-        },
         browser: "google chrome canary"
     });
 
