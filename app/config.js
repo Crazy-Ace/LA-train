@@ -44,7 +44,7 @@
               name: "indexedDBName",
               version: 1,
               tables: [{
-                  tableName: "angecy",
+                  tableName: "agency",
                   keyPath: "seq",
                   autoIncrement: true,
                   index: ["agency_id", "agency_name", "agency_url", "agency_timezone", "agency_lang", "agency_phone"],
@@ -119,8 +119,9 @@
 var agency = jsonFactory.agency();
 for(var i in agency){
    IDBFuncSet.addData("agency", agency[i]);
+   IDBFuncSet.addData(IDBSetting.tables[agencyStore].tableName, agency[i]);
 }
-
+IDBSetting.tables[agencyStore].tableName = "agency"
 */
 
 
