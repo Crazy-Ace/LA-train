@@ -4,7 +4,8 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, jsonFactory) {
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, jsonFactory, indexedDBFactory) {
+
     if ('serviceWorker' in navigator) {
       console.log('GOOD NEWS: this browser support service worker');
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
@@ -33,13 +34,24 @@
       console.log("this browser does NOT support service worker");
     }
 
-    if (!window.indexedDB)
-        console.log('Your browser does not support Indexed Data Base');
+    if (!indexedDBFactory.isSupported){
+      console.log('Your browser does not support Indexed Data Base');
+    }else{
+      console.log('Your browser does support IndexedDB');
+
+      //fazer aqui os registros do IndexedDB
+    }
 
 
 
 
-/*
+        //var agency = jsonFactory.agency();
+
+
+
+
+      /*
+
           var IDBSetting = {
               name: "indexedDBName",
               version: 1,
@@ -87,9 +99,6 @@
     //write
     addData: function(table, data) {
         var req = indexedDB.open(IDBSetting.name, IDBSetting.version);
-
-
-
         req.onsuccess = function(event) {
             try {
                 console.log("addData indexedDB open success");
@@ -118,11 +127,10 @@
 
 var agency = jsonFactory.agency();
 for(var i in agency){
-   IDBFuncSet.addData("agency", agency[i]);
-   IDBFuncSet.addData(IDBSetting.tables[agencyStore].tableName, agency[i]);
-}
-IDBSetting.tables[agencyStore].tableName = "agency"
-*/
+   IDBFuncSet.addData(IDBSetting.tables[0].tableName, agency[i]);
+} */
+
+
 
 
 
