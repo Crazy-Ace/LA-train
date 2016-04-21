@@ -1,6 +1,5 @@
 (function () {
   'use strict';
-
   angular.module('app').factory('indexedDBFactory', ['$q', function($q) {
   	//window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
   	//window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
