@@ -37,9 +37,24 @@
     if (!indexedDBFactory.isSupported){
       console.log('Your browser does not support Indexed Data Base');
     }else{
+
       console.log('Your browser does support IndexedDB');
 
-      //fazer aqui os registros do IndexedDB
+      var agency = jsonFactory.agency();
+    	indexedDBFactory.setupIDB();
+
+    		for(var i in agency){
+          debugger;
+    			indexedDBFactory.saveOS(agency[i]).then(function() {
+    				console.log('agency Ok!');
+    			});
+    		}
+
+
+
+
+
+
     }
 
 
