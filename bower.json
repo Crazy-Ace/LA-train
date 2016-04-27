@@ -28,7 +28,8 @@
     "angular-validation-match": "~1.7.1",
     "angular-wizard": "^0.6.1",
     "firebase": "~2.2.7",
-    "angularfire": "~1.1.2"
+    "angularfire": "~1.1.2",
+    "idbwrapper": "^1.7.0"
   },
   "devDependencies": {
     "bourbon": "~4.2.0",

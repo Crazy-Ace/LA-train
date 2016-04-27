@@ -34,27 +34,32 @@
       console.log("this browser does NOT support service worker");
     }
 
-    if (!indexedDBFactory.isSupported){
-      console.log('Your browser does not support Indexed Data Base');
+    if (!("indexedDB" in window)){
+      console.log('BAD NEWS: this browser does not support IndexedDB');
     }else{
 
-      console.log('Your browser does support IndexedDB');
+      console.log('GOOD NEWS: this browser support IndexedDB');
+      /*
+      var agency01 = jsonFactory.agency();
 
-      var agency = jsonFactory.agency();
-    	indexedDBFactory.setupIDB();
+      var agency = new IDBStore({
+        dbVersion: 1,
+        storeName: 'agency',
+        keyPath: 'agency_id',
+        autoIncrement: false,
+        onStoreReady: function(){
+          console.log('Agency is ready!');
+          agency.put(agency01[0], onsuccess, onerror);
+        }
+      });
 
-    		for(var i in agency){
-          debugger;
-    			indexedDBFactory.saveOS(agency[i]).then(function() {
-    				console.log('agency Ok!');
-    			});
-    		}
-
-
-
-
-
-
+      var onsuccess = function(){
+        console.log('Yeah, dude inserted! insertId is: ');
+      }
+      var onerror = function(error){
+        console.log('Oh noes, sth went wrong!', error);
+      }
+      */
     }
 
 
