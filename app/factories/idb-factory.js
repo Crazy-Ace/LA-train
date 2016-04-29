@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  angular.module('app').factory('idbInit', function(jsonFactory){
+  angular.module('app').factory('idbInit', function(jsonFactory, $rootScope){
       return {
           agency: function(){
-            var agency01 = jsonFactory.agency();
+            var agencyJSON = jsonFactory.agency();
 
             var agency = new IDBStore({
               dbVersion: 1,
@@ -13,20 +13,14 @@
               autoIncrement: false,
               onStoreReady: function(){
                 console.log('Agency is ready!');
-                agency01.forEach(function(entry) {
-                  agency.put(entry, onsuccess, onerror);
+                agencyJSON.forEach(function(entry) {
+                  agency.put(entry);
+                });
+                agency.getAll(function(data){
+                  $rootScope.agency = data[0];
                 });
               }
             });
-
-            var onsuccess = function(){
-              //TODO
-            }
-            var onerror = function(error){
-              //TODO
-            }
-
-            return agency;
           }
       }
   });

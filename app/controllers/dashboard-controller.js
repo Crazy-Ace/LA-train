@@ -2,9 +2,10 @@
   'use strict';
   angular.module('app').controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$scope', 'idbInit'];
+  DashboardCtrl.$inject = ['$scope', 'idbInit', '$rootScope'];
 
-  function DashboardCtrl($scope, idbInit) {
+  function DashboardCtrl($scope, idbInit, $rootScope) {
+      //$scope.agency = {};
       $scope.departure = false;
       $scope.arrival = false;
       $scope.stationB = 'Departure Train Station';
@@ -18,9 +19,20 @@
         $scope.arrival = !$scope.arrival;
       }
       if ("indexedDB" in window){
-        var agency = idbInit.agency();
+        idbInit.agency();
 
-        agency.then(function() {
+
+        /*var p1 = new Promise(function(resolve, reject) {
+            idbInit.agency();
+        });
+
+        p1.then(
+        function(data) {
+          var teste = data;
+          debugger;
+        });*/
+
+        /*agency.then(function() {
           agency.getAll(onsuccess, onerror);
         });
 
@@ -33,7 +45,7 @@
         }
         var onerror = function(error){
           console.log('Oh noes, sth went wrong!', error);
-        }
+        }*/
 
         /*customers.getAll().then(function(data) {
           data.forEach(function(item){
