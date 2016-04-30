@@ -15,8 +15,17 @@
             });
             return agency;
           },
-          sayGoodbye: function(text){
-              return "Factory says \"Goodbye " + text + "\"";
+          stops: function(){
+            var stops;
+            $.ajax({
+              url: '../gtfs/stops.json',
+              dataType: 'json',
+              async: false,
+              success: function(data) {
+                stops =  data;
+              }
+            });
+            return stops;
           }
       }
   });
