@@ -4,7 +4,7 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, jsonFactory, indexedDBFactory) {
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit) {
 
     if(!$rootScope.stops)
       $rootScope.stops = [];
@@ -37,10 +37,13 @@
       console.log("this browser does NOT support service worker");
     }
 
-    if (!("indexedDB" in window))
+    if (!("indexedDB" in window)){
       console.log('BAD NEWS: this browser does not support IndexedDB');
-    else
+    }else{
+      idbInit.agency();
+      idbInit.stops();
       console.log('GOOD NEWS: this browser support IndexedDB');
+    }
   });
 
   angular.module('app')

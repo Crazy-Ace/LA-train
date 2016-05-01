@@ -2,17 +2,37 @@
   'use strict';
   angular.module('app').controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$scope', 'idbInit', '$rootScope'];
+  DashboardCtrl.$inject = ['$scope', '$rootScope'];
 
-  function DashboardCtrl($scope, idbInit, $rootScope) {
+  function DashboardCtrl($scope, $rootScope) {
       //$scope.agency = {};
       $scope.departure = false;
       $scope.arrival = false;
-      $scope.stationB = 'Departure Train Station';
-      $scope.stationA = 'Arrival Train Station';
 
       $scope.pointA = function(){
         $scope.departure = !$scope.departure;
+        $scope.conections = [];
+        if(typeof $scope.stationB === 'object' && typeof $scope.stationA === 'object'){
+
+          if($scope.stationA.stop_id > $scope.stationB.stop_id)
+            $scope.stationA.status = "hight"
+          else
+            $scope.stationA.status = "low"
+
+          $rootScope.stops.forEach(function(stop){
+            if($scope.stationA.status == "hight"){
+              if(stop.stop_id < $scope.stationA.stop_id && stop.stop_id > $scope.stationB.stop_id)
+                $scope.conections.push(stop);
+            }else {
+              if(stop.stop_id > $scope.stationA.stop_id && stop.stop_id < $scope.stationB.stop_id)
+                $scope.conections.push(stop);
+            }
+          });
+
+          if($scope.stationA.status == "hight")
+            $scope.conections.reverse();
+
+        }
       }
       $scope.stations = function(name){
         $scope.stationA = name;
@@ -20,15 +40,32 @@
 
       $scope.pointB = function(){
         $scope.arrival = !$scope.arrival;
-      }
-      if ("indexedDB" in window){
-        idbInit.agency();
-        idbInit.stops();
+        $scope.conections = [];
+
+        if(typeof $scope.stationB === 'object' && typeof $scope.stationA === 'object'){
+
+          if($scope.stationA.stop_id > $scope.stationB.stop_id)
+            $scope.stationA.status = "hight"
+          else
+            $scope.stationA.status = "low"
+
+          $rootScope.stops.forEach(function(stop){
+            if($scope.stationA.status == "hight"){
+              if(stop.stop_id < $scope.stationA.stop_id && stop.stop_id > $scope.stationB.stop_id)
+                $scope.conections.push(stop);
+            }else {
+              if(stop.stop_id > $scope.stationA.stop_id && stop.stop_id < $scope.stationB.stop_id)
+                $scope.conections.push(stop);
+            }
+          });
+          if($scope.stationA.status == "hight")
+            $scope.conections.reverse();
+        }
       }
 
       $scope.disableOption = function(stop){
-        if(stop.stop_name == $scope.stationA || stop.stop_name == $scope.stationB)
-          return true;
+        if($scope.stationA)
+          return stop.stop_name === $scope.stationA.stop_name;
         return false;
       }
 

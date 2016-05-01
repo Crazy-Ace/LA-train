@@ -6,18 +6,24 @@
         <article class="tl-item">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
-                    <div class="tl-time">{{stationA}}</div>
+                    <div class="tl-time">{{stationA && stationA.stop_name || 'Arrival Train Station'}}</div>
+
                     <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointA()">A</a>
                     <div class="tl-content" ng-show="departure">
                         <form role="form" class="ng-pristine ng-valid">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Train Station</label><br>
                                 <span class="ui-select" name="stopSelect" ng-model="stationA">
-                                    <select ng-model="stationA" ng-change="pointA()">
+                                  <select ng-model="stationA"
+                                          ng-options="stop.stop_name for stop in stops | orderBy:'stop_name'"
+                                          ng-change="pointA()">
+                                    <option value="">-- choose station --</option>
+                                  </select>
+                                    <!--<select ng-model="stationA" ng-change="pointA()">
                                         <option ng-disabled="disableOption(stop)"
-                                                ng-repeat="stop in stops"
-                                                value="{{stop.stop_name}}">{{stop.stop_name}}
-                                        </option>
+                                                ng-repeat="stop in stops | orderBy:'stop_name'"
+                                                value="stop">{{stop.stop_name}}
+                                        </option>-->
                                     </select>
                                 </span>
                             </div>
@@ -27,29 +33,10 @@
             </div>
         </article>
 
-        <article class="tl-item alt">
+        <article class="tl-item alt" ng-repeat="conection in conections">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
-                    <div class="tl-time"><span>stop 1: Station G</span></div>
-                    <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-danger"><i class="fa fa-train"></i></div>
-                </div>
-            </div>
-        </article>
-
-        <article class="tl-item alt">
-            <div class="tl-body">
-                <div class="tl-entry time-btn">
-                    <div class="tl-time"><span>stop 2: Station H</span></div>
-                    <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-danger"><i class="fa fa-train"></i></div>
-                </div>
-            </div>
-        </article>
-
-
-        <article class="tl-item alt">
-            <div class="tl-body">
-                <div class="tl-entry time-btn">
-                    <div class="tl-time"><span>stop 3: Station I</span></div>
+                    <div class="tl-time"><span>{{conection.stop_name}}</span></div>
                     <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-danger"><i class="fa fa-train"></i></div>
                 </div>
             </div>
@@ -58,19 +45,27 @@
           <article class="tl-item">
               <div class="tl-body">
                   <div class="tl-entry">
-                      <div class="tl-time">{{stationB}}</div>
+
+                      <div class="tl-time">{{stationB && stationB.stop_name || 'Arrival Train Station'}}</div>
+
                       <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointB()"><i>B</i></a>
                       <div class="tl-content" ng-show="arrival">
                           <form role="form" class="ng-pristine ng-valid">
                               <div class="form-group">
                                   <label for="exampleInputEmail1">Train Station</label><br>
                                   <span class="ui-select">
-                                      <select ng-model="stationB" ng-change="pointB()">
+                                    <select ng-model="stationB"
+                                            ng-options="stop.stop_name disable when disableOption(stop) for stop in stops | orderBy:'stop_name'"
+                                            ng-change="pointB()">
+                                      <option value="">-- choose station --</option>
+                                    </select>
+
+                                      <!--<select ng-model="stationB" ng-change="pointB()">
                                         <option ng-disabled="disableOption(stop)"
-                                                ng-repeat="stop in stops"
-                                                value="{{stop.stop_name}}">{{stop.stop_name}}
+                                                ng-repeat="stop in stops | orderBy:'stop_name'"
+                                                value="{{stop}}">{{stop.stop_name}}
                                         </option>
-                                      </select>
+                                      </select>-->
                                   </span>
                               </div>
                           </form>

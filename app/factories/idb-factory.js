@@ -25,7 +25,6 @@
           },
           stops: function(){
             var stopsJSON = jsonFactory.stops();
-            var i = 0;
 
             var stops = new IDBStore({
               dbVersion: 1,
@@ -40,13 +39,21 @@
                 stops.getAll(function(data){
                   data.forEach(function(stop){
                     stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
-                    if ((i > 0) && !(data[i - 1].stop_name === stop.stop_name))
+                    if(isStop(stop))
                       $rootScope.stops.push(stop);
-                    i++;
                   });
                 });
               }
             });
+
+            function isStop(stop){
+              var flag = true;
+              $rootScope.stops.forEach(function(entry){
+                if(entry.stop_name == stop.stop_name)
+                  flag = false;
+              });
+              return flag;
+            };
           }
       }
   });
