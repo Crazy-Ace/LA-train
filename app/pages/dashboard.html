@@ -70,6 +70,7 @@
     <table class="table">
           <thead>
               <tr>
+                  <th>#</th>
                   <th>Departure</th>
                   <th>Arrive</th>
                   <th>Duration</th>
@@ -77,9 +78,10 @@
           </thead>
           <tbody>
               <tr ng-repeat="stop_t in stop_times_filtered">
-                  <td><span class="label label-info">{{ stop_t.departure_time }}</span></td>
-                  <td><span class="label label-info">-</span></td>
-                  <td><span class="label label-info">-</span></td>
+                  <td><span class="label label-warning">{{$index}}</span></td>
+                  <td><span class="label label-info">{{ stop_t.arrival }}</span></td>
+                  <td><span class="label label-info">{{ stop_t.departure }}</span></td>
+                  <td><span class="label label-info">{{ stop_t.duration }}min</span></td>
               </tr>
           </tbody>
       </table>

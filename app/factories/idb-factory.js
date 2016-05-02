@@ -59,10 +59,8 @@
             var stop_timesJSON = jsonFactory.stop_times();
 
             var stop_times = new IDBStore({
-              dbVersion: 1,
+              dbVersion: 2,
               storeName: 'stop_times',
-              keyPath: 'trip_id',
-              autoIncrement: false,
               onStoreReady: function(){
                 console.log('Stop times is ready!');
                 stop_timesJSON.forEach(function(entry) {
