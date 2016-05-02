@@ -9,6 +9,9 @@
     if(!$rootScope.stops)
       $rootScope.stops = [];
 
+    if(!$rootScope.stop_times)
+      $rootScope.stop_times = [];
+
     if ('serviceWorker' in navigator) {
       console.log('GOOD NEWS: this browser support service worker');
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
@@ -42,6 +45,7 @@
     }else{
       idbInit.agency();
       idbInit.stops();
+      idbInit.stop_times();
       console.log('GOOD NEWS: this browser support IndexedDB');
     }
   });

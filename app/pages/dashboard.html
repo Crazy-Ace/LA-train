@@ -19,12 +19,6 @@
                                           ng-change="pointA()">
                                     <option value="">-- choose station --</option>
                                   </select>
-                                    <!--<select ng-model="stationA" ng-change="pointA()">
-                                        <option ng-disabled="disableOption(stop)"
-                                                ng-repeat="stop in stops | orderBy:'stop_name'"
-                                                value="stop">{{stop.stop_name}}
-                                        </option>-->
-                                    </select>
                                 </span>
                             </div>
                         </form>
@@ -59,13 +53,6 @@
                                             ng-change="pointB()">
                                       <option value="">-- choose station --</option>
                                     </select>
-
-                                      <!--<select ng-model="stationB" ng-change="pointB()">
-                                        <option ng-disabled="disableOption(stop)"
-                                                ng-repeat="stop in stops | orderBy:'stop_name'"
-                                                value="{{stop}}">{{stop.stop_name}}
-                                        </option>
-                                      </select>-->
                                   </span>
                               </div>
                           </form>
@@ -83,22 +70,16 @@
     <table class="table">
           <thead>
               <tr>
-                  <th>Train</th>
-                  <th>Time</th>
+                  <th>Departure</th>
+                  <th>Arrive</th>
                   <th>Duration</th>
               </tr>
           </thead>
           <tbody>
-              <tr>
-                  <td><span class="color-success"><i class="fa fa-level-up"></i></span> TWLT</td>
-                  <td><span class="label label-info">13h</span></td>
-                  <td><span class="label label-info">1h5min</span></td>
-              </tr>
-
-              <tr>
-                  <td><span class="color-success"><i class="fa fa-level-up"></i></span> FDAS</td>
-                  <td><span class="label label-info">13h15min</span></td>
-                  <td><span class="label label-info">1h5min</span></td>
+              <tr ng-repeat="stop_t in stop_times_filtered">
+                  <td><span class="label label-info">{{ stop_t.departure_time }}</span></td>
+                  <td><span class="label label-info">-</span></td>
+                  <td><span class="label label-info">-</span></td>
               </tr>
           </tbody>
       </table>

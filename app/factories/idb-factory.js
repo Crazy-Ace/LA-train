@@ -54,6 +54,25 @@
               });
               return flag;
             };
+          },
+          stop_times: function(){
+            var stop_timesJSON = jsonFactory.stop_times();
+
+            var stop_times = new IDBStore({
+              dbVersion: 1,
+              storeName: 'stop_times',
+              keyPath: 'trip_id',
+              autoIncrement: false,
+              onStoreReady: function(){
+                console.log('Stop times is ready!');
+                stop_timesJSON.forEach(function(entry) {
+                  stop_times.put(entry);
+                });
+                stop_times.getAll(function(data){
+                  $rootScope.stop_times = data;
+                });
+              }
+            });
           }
       }
   });

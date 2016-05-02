@@ -26,6 +26,18 @@
               }
             });
             return stops;
+          },
+          stop_times: function(){
+            var stop_times;
+            $.ajax({
+              url: '../gtfs/stop_times.json',
+              dataType: 'json',
+              async: false,
+              success: function(data) {
+                stop_times =  data;
+              }
+            });
+            return stop_times;
           }
       }
   });
