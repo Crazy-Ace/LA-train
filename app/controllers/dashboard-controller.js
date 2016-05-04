@@ -76,7 +76,7 @@
       function duration(time_a, time_b){
         var a = time_a.split(':');
         var b = time_b.split(':');
-        
+
         var secondsA = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
         var secondsB = (+b[0]) * 60 * 60 + (+b[1]) * 60 + (+b[2]);
 
@@ -102,8 +102,10 @@
 
         time_a.forEach(function(a){
           time_b.forEach(function(b){
-            if(a.trip_id == b.trip_id)
-              if(a.stop_sequence + $scope.conections.length == b.stop_sequence ){
+
+
+            if(a.trip_id == b.trip_id){
+              //if(a.stop_sequence + $scope.conections.length == b.stop_sequence ){
                 time = {
                   arrival: a.departure_time,
                   departure: b.arrival_time,
@@ -111,6 +113,7 @@
                 };
                 $scope.stop_times_filtered.push(time);
               }
+              //}
           });
         });
 
