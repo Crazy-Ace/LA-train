@@ -84,6 +84,8 @@
       }
 
       function getTimes(){
+        $scope.stop_times_filtered = [];
+
         var way;
         var time_a = [];
         var time_b = [];
@@ -100,22 +102,35 @@
             time_b.push(entry);
         });
 
-        time_a.forEach(function(a){
+
+        for (var i = 0; i < time_a.length; i++){
+          loop2: for (var j = 0; j < time_b.length; j++){
+            if(time_a[i].trip_id == time_b[j].trip_id){
+              time = {
+                arrival: time_a[i].departure_time,
+                departure: time_b[j].arrival_time,
+                duration: duration(time_a[i].departure_time, time_b[j].arrival_time)
+              };
+
+              $scope.stop_times_filtered.push(time);
+              break loop2;
+            }
+          }
+        }
+
+        /*time_a.forEach(function(a){
           time_b.forEach(function(b){
-
-
             if(a.trip_id == b.trip_id){
-              //if(a.stop_sequence + $scope.conections.length == b.stop_sequence ){
                 time = {
                   arrival: a.departure_time,
                   departure: b.arrival_time,
                   duration: duration(a.departure_time, b.arrival_time)
                 };
                 $scope.stop_times_filtered.push(time);
-              }
-              //}
+                break loop2;
+            }
           });
-        });
+        });*/
 
         var teste = filtered;
 
