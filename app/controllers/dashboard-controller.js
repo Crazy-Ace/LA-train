@@ -72,15 +72,12 @@
         if($scope.stationA.status == "north")
           $scope.conections.reverse();
       }
+      function toSeconds(time){
+        return (+time.split(':')[0]) * 60 * 60 + (+time.split(':')[1]) * 60 + (+time.split(':')[2]);
+      }
 
       function duration(time_a, time_b){
-        var a = time_a.split(':');
-        var b = time_b.split(':');
-
-        var secondsA = (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2]);
-        var secondsB = (+b[0]) * 60 * 60 + (+b[1]) * 60 + (+b[2]);
-
-        return ((secondsB / 60) - (secondsA / 60));
+        return ((toSeconds(time_b) / 60) - (toSeconds(time_a) / 60));
       }
 
       function getTimes(){
@@ -109,7 +106,8 @@
               time = {
                 arrival: time_a[i].departure_time,
                 departure: time_b[j].arrival_time,
-                duration: duration(time_a[i].departure_time, time_b[j].arrival_time)
+                duration: duration(time_a[i].departure_time, time_b[j].arrival_time),
+                position: toSeconds(time_a[i].departure_time)
               };
 
               $scope.stop_times_filtered.push(time);
@@ -117,38 +115,6 @@
             }
           }
         }
-
-        /*time_a.forEach(function(a){
-          time_b.forEach(function(b){
-            if(a.trip_id == b.trip_id){
-                time = {
-                  arrival: a.departure_time,
-                  departure: b.arrival_time,
-                  duration: duration(a.departure_time, b.arrival_time)
-                };
-                $scope.stop_times_filtered.push(time);
-                break loop2;
-            }
-          });
-        });*/
-
-        var teste = filtered;
-
-        /*$rootScope.stop_times.forEach(function(entry){
-          if(entry.stop_id === ($scope.stationA.stop_id + way))
-            $scope.stop_times_filtered.push(entry);
-        });
-
-        $scope.stop_times_filtered.forEach(function(a){
-          $rootScope.stop_times.forEach(function(b){
-            if((a.trip_id == b.trip_id) && (b.stop_id == $scope.stationB.stop_id)){
-              var teste = 0;
-            }
-          });
-
-        });*/
-
       }
-
     }
 })();
