@@ -70,7 +70,7 @@
     <table class="table">
           <thead>
               <tr>
-                  <th>#</th>
+                  <th>Train</th>
                   <th>Departure</th>
                   <th>Arrive</th>
                   <th>Duration</th>
@@ -78,7 +78,7 @@
           </thead>
           <tbody ng-show="stationA && stationB">
               <tr ng-repeat="stop_t in stop_times_filtered | orderBy:'position'">
-                  <td><span class="label label-warning">{{$index}}</span></td>
+                  <td><span class="label label-warning">{{stop_t.train}}</span></td>
                   <td><span class="label label-info">{{ stop_t.arrival }}</span></td>
                   <td><span class="label label-info">{{ stop_t.departure }}</span></td>
                   <td><span class="label label-info">{{ stop_t.duration }}min</span></td>

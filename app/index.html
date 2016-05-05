@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Estagiário</title>
+        <title>CalTrain</title>
         <meta name="description" content="Responsive Admin Web App with Bootstrap and AngularJS">
         <meta name="keywords" content="angularjs admin, admin templates, admin themes, bootstrap admin">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -54,9 +54,13 @@
         <div class="main-container"
              data-ng-class="{ 'app-nav-horizontal': main.menu === 'horizontal' }">
 
-            <div id="content">
+            <!--<div id="content">
                 <section data-ng-view
                          class="content-container {{main.pageTransition.class}}"></section>
+            </div>-->
+
+            <div id="content" class="content-container">
+                <section data-ng-view class="view-container {{main.pageTransition.class}}"></section>
             </div>
 
             <footer data-ng-include=" 'pages/shared/footer.html' "

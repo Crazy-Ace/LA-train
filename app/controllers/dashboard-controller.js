@@ -18,6 +18,7 @@
           setStatus();
           getConections();
           north();
+          getTimes();
         }
       }
 
@@ -80,6 +81,23 @@
         return ((toSeconds(time_b) / 60) - (toSeconds(time_a) / 60));
       }
 
+      function isValidTrip(trip_a, trip_b){
+        var flag;
+
+        if((trip_a == trip_b) && (trip_a <= 999))
+          flag = true;
+        else
+          flag = false;
+
+        if(flag){
+          $scope.stop_times_filtered.forEach(function(entry){
+            if(entry.train == trip_a)
+              flag = false;
+          });
+        }
+        return flag;
+      }
+
       function getTimes(){
         $scope.stop_times_filtered = [];
 
@@ -99,11 +117,11 @@
             time_b.push(entry);
         });
 
-
         for (var i = 0; i < time_a.length; i++){
           loop2: for (var j = 0; j < time_b.length; j++){
-            if(time_a[i].trip_id == time_b[j].trip_id){
+            if(isValidTrip(time_a[i].trip_id, time_b[j].trip_id)){
               time = {
+                train: time_a[i].trip_id,
                 arrival: time_a[i].departure_time,
                 departure: time_b[j].arrival_time,
                 duration: duration(time_a[i].departure_time, time_b[j].arrival_time),
