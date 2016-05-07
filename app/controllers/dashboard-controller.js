@@ -31,6 +31,7 @@
           getConections();
           north();
           getTimes();
+          getConectionsTime();
         }
       }
 
@@ -60,6 +61,10 @@
               $scope.conections.push(stop);
           }
         });
+      }
+
+      function getConectionsTime(){
+        //TODO get avarage time for each station
       }
 
       function setStatus(){

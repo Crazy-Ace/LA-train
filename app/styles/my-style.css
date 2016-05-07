@@ -10,3 +10,7 @@
 .nav-collapsed-min .app-footer {
     margin-left: 0px;
 }
+
+.ui-timline-container {
+    padding: 25px;
+}
