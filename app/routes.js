@@ -6,14 +6,6 @@
             .when('/', {
                 redirectTo: '/dashboard'
             })
-            .when('/login', {
-                controller: 'LoginCtrl',
-                templateUrl: 'pages/login.html'
-            })
-            .when('/signup', {
-                controller: 'LoginCtrl',
-                templateUrl: 'pages/signup.html'
-            })
             .when('/dashboard', {
                 controller: 'DashboardCtrl',
                 templateUrl: 'pages/dashboard.html'

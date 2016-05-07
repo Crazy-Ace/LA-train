@@ -26,6 +26,11 @@ Go to root folder of project, open your terminal and then follow steps:
 - Running serve task:  
 `$ npm run gulp server`
 
+##Service Worker:
+- Generate service work calling a task from gulp. The task going to set up all you need.
+
+`$ gulp generate-sw`
+
 ##Creating Dist folder (not working)
 
 ##Features  

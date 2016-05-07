@@ -5,7 +5,6 @@
   DashboardCtrl.$inject = ['$scope', '$rootScope'];
 
   function DashboardCtrl($scope, $rootScope) {
-      //$scope.agency = {};
       $scope.departure = false;
       $scope.arrival = false;
       $scope.stop_times_filtered = [];

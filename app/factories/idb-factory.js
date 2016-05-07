@@ -12,7 +12,6 @@
               keyPath: 'agency_id',
               autoIncrement: false,
               onStoreReady: function(){
-                console.log('Agency is ready!');
                 agencyJSON.forEach(function(entry) {
                   agency.put(entry);
                 });
@@ -32,7 +31,6 @@
               keyPath: 'stop_id',
               autoIncrement: false,
               onStoreReady: function(){
-                console.log('Stops is ready!');
                 stopsJSON.forEach(function(entry) {
                   stops.put(entry);
                 });
@@ -62,7 +60,6 @@
               dbVersion: 2,
               storeName: 'stop_times',
               onStoreReady: function(){
-                console.log('Stop times is ready!');
                 stop_timesJSON.forEach(function(entry) {
                   stop_times.put(entry);
                 });

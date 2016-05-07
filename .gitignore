@@ -2,4 +2,7 @@
 .tmp
 node_modules
 bower_components
-dist
+dist/css
+dist/images
+dist/js
+dist/pages

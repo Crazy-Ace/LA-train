@@ -5,9 +5,6 @@
   HeaderCtrl.$inject = ['$scope'];
 
   function HeaderCtrl($scope) {
-
-
-
      $scope.$watch('navigator.onLine', function() {
         $scope.checked = navigator.onLine;
     });

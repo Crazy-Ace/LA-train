@@ -26,14 +26,9 @@
         }
 
         if (serviceWorker) {
-          console.log("ServiceWorker phase:", serviceWorker.state);
-
           serviceWorker.addEventListener('statechange', function (e) {
-            console.log("ServiceWorker phase:", e.target.state);
           });
         }
-      }).catch(function (err) {
-        console.log('ServiceWorker registration failed: ', err);
       });
 
     } else {

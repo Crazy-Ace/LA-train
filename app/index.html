@@ -1,5 +1,4 @@
 <!doctype html>
-<!--[if lt IE 8]>         <html class="no-js lt-ie8"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
@@ -9,17 +8,15 @@
         <meta name="keywords" content="angularjs admin, admin templates, admin themes, bootstrap admin">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <!-- Needs images, font... therefore can not be part of main.css -->
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-        <!-- end Needs images -->
 
-            <!-- build:css({.tmp,client}) styles/main.css -->
-            <link rel="stylesheet" href="styles/bootstrap.css">
-            <link rel="stylesheet" href="styles/ui.css">
-            <link rel="stylesheet" href="styles/main.css">
-            <link rel="stylesheet" href="styles/my-style.css">
-            <!-- endbuild -->
+        <!-- build:css({.tmp,client}) styles/main.css -->
+        <link rel="stylesheet" href="styles/bootstrap.css">
+        <link rel="stylesheet" href="styles/ui.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/my-style.css">
+        <!-- endbuild -->
 
     </head>
     <body data-ng-app="app"
@@ -31,12 +28,6 @@
           data-ng-class=" { 'layout-boxed': main.layout === 'boxed',
                             'nav-collapsed-min': main.isMenuCollapsed
           } ">
-        <!--[if lt IE 9]>
-            <div class="lt-ie9-bg">
-                <p class="browsehappy">You are using an <strong>outdated</strong> browser.</p>
-                <p>Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-            </div>
-        <![endif]-->
 
         <header data-ng-include=" 'pages/shared/header.html' "
                  id="header"
@@ -53,11 +44,6 @@
 
         <div class="main-container"
              data-ng-class="{ 'app-nav-horizontal': main.menu === 'horizontal' }">
-
-            <!--<div id="content">
-                <section data-ng-view
-                         class="content-container {{main.pageTransition.class}}"></section>
-            </div>-->
 
             <div id="content" class="content-container">
                 <section data-ng-view class="view-container {{main.pageTransition.class}}"></section>
@@ -79,45 +65,22 @@
         <script src="bower_components/firebase/firebase.js"></script>
         <script src="bower_components/angularfire/dist/angularfire.js"></script>
         <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="bower_components/toastr/toastr.min.js"></script>
-        <script src="bower_components/jquery.slimscroll/jquery.slimscroll.min.js"></script>
-        <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
-        <script src="bower_components/angular-scroll/angular-scroll.min.js"></script>
-        <script src="bower_components/ngmap/build/scripts/ng-map.min.js"></script>
-        <script src="bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
-        <script src="bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
-        <script src="bower_components/textAngular/dist/textAngular.min.js"></script>
-        <script src="bower_components/moment/min/moment.min.js"></script>
-        <script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-        <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
-        <script src="bower_components/angular-translate/angular-translate.min.js"></script>
-        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
-        <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-        <script src="bower_components/angular-ui-tree/dist/angular-ui-tree.min.js"></script>
-        <script src="bower_components/angular-wizard/dist/angular-wizard.min.js"></script>
-        <script src="bower_components/bootstrap-file-input/bootstrap.file-input.js"></script>
-        <script src="bower_components/angular-validation-match/dist/angular-validation-match.min.js"></script>
         <script src="bower_components/idbwrapper/idbstore.min.js"></script>
-        <script src="vendors/echarts.js"></script>
-        <script src="vendors/ngecharts.js"></script>
 
         <!-- CORE -->
         <script src="app.js"></script>
         <script src="routes.js"></script>
         <script src="config.js"></script>
-        <script src="i18n/i18n.js"></script>
 
         <!-- CONTROLLERS -->
         <!-- build:controllers -->
         <script src="controllers/app-controller.js"></script>
-        <script src="controllers/login-controller.js"></script>
         <script src="controllers/header-controller.js"></script>
         <script src="controllers/dashboard-controller.js"></script>
         <!-- endbuild -->
 
         <script src="factories/json-factory.js"></script>
         <script src="factories/idb-factory.js"></script>
-        <script src="factories/indexedDB-factory.js"></script>
 
         <!-- FUNCTIONALITIES -->
         <script src="funcs/calendar.module.js"></script>

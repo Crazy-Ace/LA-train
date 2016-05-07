@@ -4,7 +4,6 @@
     angular.module('app')
         .controller('AppCtrl', [ '$scope', '$rootScope', '$route', '$document', 'appConfig', AppCtrl]); // overall control
 
-
     function AppCtrl($scope, $rootScope, $route, $document, appConfig) {
 
         $scope.pageTransitionOpts = appConfig.pageTransitionOpts;
@@ -12,9 +11,6 @@
         $scope.color = appConfig.color;
 
         $scope.$watch('main', function(newVal, oldVal) {
-            // if (newVal.menu !== oldVal.menu || newVal.layout !== oldVal.layout) {
-            //     $rootScope.$broadcast('layout:changed');
-            // }
 
             if (newVal.menu === 'horizontal' && oldVal.menu === 'vertical') {
             $rootScope.$broadcast('nav:reset');
@@ -36,10 +32,5 @@
             $scope.main.fixedSidebar = false;
             }
         }, true);
-
-        $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
-            $document.scrollTo(0, 0);
-        });
     }
-
 })();

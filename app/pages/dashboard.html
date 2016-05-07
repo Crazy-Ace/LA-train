@@ -3,12 +3,27 @@
   <div class="ui-timline-container col-md-6 col-sm-12">
       <section class="ui-timeline">
 
+        <!--<button class="btn btn-w-lg btn-default btn-gap" tooltip-placement="top" uib-tooltip="On the Top!" tooltip-append-to-body="true">Tooltip on Top</button>
+        -->
+
+
+
+
+
         <article class="tl-item">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
                     <div class="tl-time">{{stationA && stationA.stop_name || 'Arrival Train Station'}}</div>
 
-                    <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointA()">A</a>
+                    <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB hidden-sm hidden-xs"
+                       tooltip-placement="top"
+                       uib-tooltip="Click here!"
+                       tooltip-append-to-body="true"
+                       ng-click="pointA()">A</a>
+
+                    <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB visible-sm visible-xs"
+                       ng-click="pointA()">A</a>
+
                     <div class="tl-content" ng-show="departure">
                         <form role="form" class="ng-pristine ng-valid">
                             <div class="form-group">
@@ -42,7 +57,15 @@
 
                       <div class="tl-time">{{stationB && stationB.stop_name || 'Arrival Train Station'}}</div>
 
-                      <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB" ng-click="pointB()"><i>B</i></a>
+                      <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB hidden-sm hidden-xs"
+                         tooltip-placement="bottom"
+                         uib-tooltip="Click here!"
+                         tooltip-append-to-body="true"
+                         ng-click="pointB()">B</a>
+
+                      <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB visible-sm visible-xs"
+                         ng-click="pointB()">B</a>
+
                       <div class="tl-content" ng-show="arrival">
                           <form role="form" class="ng-pristine ng-valid">
                               <div class="form-group">
