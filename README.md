@@ -1,6 +1,9 @@
 # LA-train
 Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegree
 
+##Demo
+- You can see a demo [here](www.google.com).
+
 ##Technologies:
 [AngularJS](https://angularjs.org/)   
 [Firebase](https://www.firebase.com/)  
@@ -27,11 +30,14 @@ Go to root folder of project, open your terminal and then follow steps:
 `$ npm run gulp server`
 
 ##Service Worker:
-- Generate service work calling a task from gulp. The task going to set up all you need.
+- Generate service work calling a task from gulp. The task will to set up all you need.
 
 `$ gulp generate-sw`
 
-##Creating Dist folder (not working)
+##Distribution
+- Generate dist folder with all needs such as minify, uglify, compress and others.
+
+`$ gulp dist`
 
 ##Features  
 **Version 1.0.0**  
