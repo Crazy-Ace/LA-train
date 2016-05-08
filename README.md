@@ -33,7 +33,6 @@ Go to root folder of project, open your terminal and then follow steps:
 
 ##Service Worker
 - Generate service work calling a task from gulp. The task will to set up all you need.
-
 `$ gulp generate-sw`
 
 ##Indexed Data Base
@@ -41,7 +40,6 @@ Go to root folder of project, open your terminal and then follow steps:
 
 ##Distribution
 - Generate dist folder with all needs such as minify, uglify, compress and others.
-
 `$ gulp dist`
 
 ##Features  
