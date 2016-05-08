@@ -12,8 +12,16 @@
     if(!$rootScope.stop_times)
       $rootScope.stop_times = [];
 
+    if(!$rootScope.notifications)
+      $rootScope.notifications = [];
+
     if ('serviceWorker' in navigator) {
-      console.log('GOOD NEWS: this browser support service worker');
+      $rootScope.notifications.push({
+        message: 'This browser support service worker',
+        type: 'btn-success',
+        class: 'fa fa-shield'
+      });
+
       navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
       .then(function (registration) {
         var serviceWorker;
@@ -32,16 +40,29 @@
       });
 
     } else {
-      console.log("this browser does NOT support service worker");
+      $rootScope.notifications.push({
+        message: 'This browser does NOT support service worker',
+        type: 'btn-danger',
+        class: 'fa fa-shield'
+      });
     }
 
     if (!("indexedDB" in window)){
-      console.log('BAD NEWS: this browser does not support IndexedDB');
+      $rootScope.notifications.push({
+        message: 'This browser does NOT support IndexedDB',
+        type: 'btn-danger',
+        class: 'fa fa-database'
+      });
     }else{
       idbInit.agency();
       idbInit.stops();
       idbInit.stop_times();
-      console.log('GOOD NEWS: this browser support IndexedDB');
+
+      $rootScope.notifications.push({
+        message: 'This browser support IndexedDB',
+        type: 'btn-success',
+        class: 'fa fa-database'
+      });
     }
   });
 
@@ -94,14 +115,4 @@
           color: color
       }
   }
-
-  /*angular.module('app').controller('HeaderCtrl', ['$scope']);
-
-  function HeaderCtrl($scope) {
-
-    if(navigator.onLine)
-      $scope.connection = 'perfect';
-    else
-      $scope.connection = 'offline';
-  }*/
 })();

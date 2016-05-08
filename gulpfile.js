@@ -6,7 +6,8 @@ var gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     concatCss = require('gulp-concat-css'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify');
+    uglify = require('gulp-uglify'),
+    htmlbuild = require('gulp-htmlbuild');
 
 gulp.task('default', function() {
 
@@ -17,26 +18,32 @@ gulp.task('pages', function() {
 });
 
 gulp.task('minify-css', function() {
-  return gulp.src(['app/styles/*.css',
-                  'http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic',
-                  'bower_components/font-awesome/css/font-awesome.min.css'])
-    .pipe(concatCss('styles-1.0.0.min.css'))
+  return gulp.src(['http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic',
+                   'bower_components/font-awesome/css/font-awesome.min.css',
+                   'app/styles/bootstrap.css',
+                   'app/styles/ui.css',
+                   'app/styles/main.css',
+                   'app/styles/my-style.css'])
+    .pipe(concatCss('styles-1.0.1.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css'));
 
 });
 
-gulp.task('images', function() {
-  gulp.src(['app/images/**/*']).pipe(gulp.dest('dist/images'));
+gulp.task('json', function() {
+  gulp.src(['app/gtfs/agency.json',
+            'app/gtfs/stops.json',
+            'app/gtfs/stop_times.json'])
+      .pipe(gulp.dest('dist/gtfs'));
+});
+
+gulp.task('fonts', function() {
+  gulp.src(['bower_components/font-awesome/fonts/**/*'])
+      .pipe(gulp.dest('dist/fonts'));
 });
 
 gulp.task('compress', function() {
-  return gulp.src(['app/*.js',
-                  'app/controllers/*.js',
-                  'app/factories/*.js',
-                  'app/funcs/*.js',
-                  'http://maps.google.com/maps/api/js?key=AIzaSyB9_u4aR59ZqmlaHNGv96wRhiexLoYu26A',
-                  'bower_components/jquery/dist/jquery.min.js',
+  return gulp.src(['bower_components/jquery/dist/jquery.min.js',
                   'bower_components/angular/angular.min.js',
                   'bower_components/angular-route/angular-route.min.js',
                   'bower_components/angular-aria/angular-aria.min.js',
@@ -44,9 +51,14 @@ gulp.task('compress', function() {
                   'bower_components/firebase/firebase.js',
                   'bower_components/angularfire/dist/angularfire.js',
                   'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                  'bower_components/idbwrapper/idbstore.min.js'])
-    .pipe(uglify())
-    .pipe(concat('scripts-1.0.0.min.js'))
+                  'bower_components/idbwrapper/idbstore.min.js',
+                  'app/app.js',
+                  'app/routes.js',
+                  'app/config.js',
+                  'app/controllers/*.js',
+                  'app/factories/*.js'])
+    //.pipe(uglify())
+    .pipe(concat('scripts-1.0.6.min.js'))
     .pipe(gulp.dest('dist/js'));
 });
 
@@ -85,4 +97,56 @@ gulp.task('generate-sw', function(callback) {
 });
 
 gulp.task('server', ['serve','generate-sw']);
-gulp.task('dist', ['minify-css', 'compress', 'pages', 'images']);
+gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts'], function(callback) {
+  var rootDir = 'dist';
+
+  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    stripPrefix: rootDir
+  }, callback);
+});
+
+//TODO htmlbuild
+gulp.task('build', function () {
+
+  gulp.src(['dist/index.html'])
+    .pipe(htmlbuild({
+      // build js with preprocessor
+      js: htmlbuild.preprocess.js(function (block) {
+
+        block.pipe(gulpSrc())
+          .pipe(jsBuild);
+
+        block.end('js/concat.js');
+
+      }),
+
+      // build css with preprocessor
+      css: htmlbuild.preprocess.css(function (block) {
+
+        block.pipe(gulpSrc())
+          .pipe(cssBuild);
+
+        block.end('css/concat.css');
+
+      }),
+
+      // remove blocks with this target
+      remove: function (block) {
+        block.end();
+      },
+
+      // add a template with this target
+      template: function (block) {
+        es.readArray([
+          '<!--',
+          '  processed by htmlbuild (' + block.args[0] + ')',
+          '-->'
+        ].map(function (str) {
+          return block.indent + str;
+        })).pipe(block);
+      }
+    }))
+    .pipe(gulp.dest('./build'));
+
+});

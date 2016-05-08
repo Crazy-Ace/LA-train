@@ -246,6 +246,29 @@
                     </div>
                 </div>
             </li>
+
+            <li class="dropdown" uib-dropdown="" is-open="status.isopenBell" style="">
+                <a href="javascript:;" uib-dropdown-toggle="" ng-disabled="disabled" class="bg-info dropdown-toggle" aria-haspopup="true" aria-expanded="false" aria-disabled="false">
+                    <i class="fa fa-bell"></i>
+                    <span class="badge badge-info">{{notifications.length}}</span>
+                </a>
+                <div class="dropdown-menu with-arrow panel pull-right panel-default dropdown-menu-scaleIn" uib-dropdown-menu="">
+                    <div class="panel-heading">
+                        You have {{notifications.length}} notifications.
+                    </div>
+                    <ul ng-repeat="notification in notifications" class="list-group">
+                        <li class="list-group-item">
+                          <span class="media-left media-icon">
+                              <span class="btn-icon btn-icon-round" ng-class="notification.type"><i ng-class="notification.class"></i></span>
+                          </span>
+                          <div class="media-body">
+                              <span class="text-muted block">{{ notification.message }}</span>
+                          </div>
+                        </li>
+                    </ul>
+                    <div class="panel-footer"></div>
+                </div>
+            </li>
         </ul>
     </div>
 

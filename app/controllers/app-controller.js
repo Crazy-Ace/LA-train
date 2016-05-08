@@ -1,8 +1,9 @@
 (function () {
     'use strict';
 
-    angular.module('app')
-        .controller('AppCtrl', [ '$scope', '$rootScope', '$route', '$document', 'appConfig', AppCtrl]); // overall control
+    angular.module('app').controller('AppCtrl', AppCtrl);
+
+    AppCtrl.$inject = ['$scope', '$rootScope', '$route', '$document', 'appConfig'];
 
     function AppCtrl($scope, $rootScope, $route, $document, appConfig) {
 

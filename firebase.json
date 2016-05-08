@@ -1,5 +1,5 @@
 {
-  "firebase": "trainee",
+  "firebase": "udacitytwo",
   "public": "dist",
   "ignore": [
     "firebase.json",
