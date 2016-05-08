@@ -1,12 +1,12 @@
 # LA-train
-Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegree. It's a responsive app with IndexedDB and service worker.
+Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegree. It's a responsive app with IndexedDB and Service Worker.
 
 ##Demo
 - You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).
 
 ##Technologies:
-[IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)
-[Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
+[IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)  
+[Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)  
 [AngularJS](https://angularjs.org/)   
 [Firebase](https://www.firebase.com/)  
 JavaScript  
