@@ -32,14 +32,14 @@ Go to root folder of project, open your terminal and then follow steps:
 `$ npm run gulp server`
 
 ##Service Worker
-- Generate service work calling a task from gulp. The task will to set up all you need.
+- Generate service work calling a task from gulp. The task will to set up all you need.  
 `$ gulp generate-sw`
 
 ##Indexed Data Base
   Reading from GTFS files and setting up. I used idbwrapping lib to help me with the functionalities that I need to store my json files. From GTFS files I use only stops.json and stop_times.json to solve my problem.
 
 ##Distribution
-- Generate dist folder with all needs such as minify, uglify, compress and others.
+- Generate dist folder with all needs such as minify, uglify, compress and others.  
 `$ gulp dist`
 
 ##Features  
