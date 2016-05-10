@@ -24,7 +24,7 @@
                                   <select ng-model="stationA"
                                           ng-options="stop.stop_name for stop in stops | orderBy:'stop_name'"
                                           ng-change="pointA()">
-                                    <option value="">-- choose station --</option>
+                                    <option value=""> <i class="fa fa-train" aria-hidden="true"></i> -- choose station --</option>
                                   </select>
                                 </span>
                             </div>
@@ -37,7 +37,7 @@
         <article class="tl-item alt" ng-repeat="conection in conections">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
-                    <div class="tl-time"><span>{{conection.stop_name}}</span></div>
+                    <div class="tl-time"><span>{{conection.stop_name}} <!--({{ conection.duration }}min)--></span></div>
                     <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-danger"><i class="fa fa-train"></i></div>
                 </div>
             </div>

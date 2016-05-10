@@ -4,7 +4,7 @@
     "FIREBASE_URL": "https://trainee.firebaseio.com/"
   });
 
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit) {
+  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit, $http) {
 
     if(!$rootScope.stops)
       $rootScope.stops = [];
@@ -17,7 +17,7 @@
 
     if ('serviceWorker' in navigator) {
       $rootScope.notifications.push({
-        message: 'This browser support service worker',
+        message: 'This browser support Service Worker',
         type: 'btn-success',
         class: 'fa fa-shield'
       });
@@ -41,7 +41,7 @@
 
     } else {
       $rootScope.notifications.push({
-        message: 'This browser does NOT support service worker',
+        message: 'This browser does NOT support Service Worker',
         type: 'btn-danger',
         class: 'fa fa-shield'
       });
@@ -64,6 +64,44 @@
         class: 'fa fa-database'
       });
     }
+
+    //stops_real_time();
+
+    function stops_real_time(){
+      /*$http({
+        method: 'GET',
+        url: 'http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6'
+      }).then(function successCallback(response) {
+          var teste = response;
+      }, function errorCallback(response) {
+          var teste2 = response;
+      });*/
+
+                $http.get(
+                    'data.xml',
+                    {transformResponse:function(data) {
+                    	// convert the data to JSON and provide
+                    	// it to the success function below
+						var x2js = new X2JS();
+						var json = x2js.xml_str2json( data );
+						return json;
+						}
+					}
+                ).
+                success(function(data, status) {
+					// send the converted data back
+					// to the callback function
+                    callback(data);
+                })
+
+
+      $http.jsonp('http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6')
+          .then(function successCallback(response) {
+              var teste = response;
+          }, function errorCallback(response) {
+              var teste2 = response;
+          });
+     }
   });
 
   angular.module('app')

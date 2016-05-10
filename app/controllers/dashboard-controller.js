@@ -18,6 +18,7 @@
           getConections();
           north();
           getTimes();
+          //getConectionsTime();
         }
       }
 
@@ -30,7 +31,7 @@
           getConections();
           north();
           getTimes();
-          getConectionsTime();
+          //getConectionsTime();
         }
       }
 
@@ -63,7 +64,25 @@
       }
 
       function getConectionsTime(){
-        //TODO get avarage time for each station
+        var way;
+
+        if($scope.stationA.status == "north")way = 0;
+        if($scope.stationA.status == "south")way = 1;
+
+        for (var j = 0; j < $rootScope.stop_times.length; j++){
+          if($scope.stop_times_filtered[0].train == $rootScope.stop_times[j].trip_id){
+            for (var i = 0; i < $scope.conections.length; i++){
+              if(($scope.conections[i].stop_id + way) == $rootScope.stop_times[j].stop_id){
+                if(i == 0)
+                  $scope.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time);
+                else
+                  $scope.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time) + $scope.conections[i-1].duration;
+
+              }
+            }
+          }
+        }
+
       }
 
       function setStatus(){
