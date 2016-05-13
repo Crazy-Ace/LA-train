@@ -1,7 +1,7 @@
 (function () {
 
   angular.module('app').constant('APP_SETTINGS', {
-    "FIREBASE_URL": "https://trainee.firebaseio.com/"
+    "FIREBASE_URL": "https://udacitytwo.firebaseio.com/"
   });
 
   angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit, $http) {
@@ -65,9 +65,34 @@
       });
     }
 
-    //stops_real_time();
+    stops_real_time();
 
     function stops_real_time(){
+
+      function loadRemoteData(url) {
+          var script = document.createElement("script");
+          script.setAttribute("type","text/javascript");
+          script.setAttribute("src", url);
+          document.getElementsByTagName("head")[0].appendChild(script);
+      }
+
+      function processData(jsonResult) {
+        var teste = JSON.stringify(jsonResult);
+          //alert(JSON.stringify(jsonResult)); //alert the JSON as a string
+      }
+
+      loadRemoteData("http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6");
+
+
+
+
+
+
+
+
+
+
+
       /*$http({
         method: 'GET',
         url: 'http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6'
@@ -77,7 +102,7 @@
           var teste2 = response;
       });*/
 
-                $http.get(
+      /*          $http.get(
                     'data.xml',
                     {transformResponse:function(data) {
                     	// convert the data to JSON and provide
@@ -93,14 +118,14 @@
 					// to the callback function
                     callback(data);
                 })
+*/
 
-
-      $http.jsonp('http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6')
+    /*  $http.jsonp('http://services.my511.org/Transit2.0/GetStopsForRoute.aspx?routeIDF=Caltrain~LOCAL~NB&token=8b3ec317-7cc8-444e-9057-3f0642ea4cd6')
           .then(function successCallback(response) {
               var teste = response;
           }, function errorCallback(response) {
               var teste2 = response;
-          });
+          });*/
      }
   });
 
