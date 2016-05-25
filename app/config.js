@@ -15,6 +15,7 @@
     if(!$rootScope.notifications)
       $rootScope.notifications = [];
 
+    //Service Worker
     if ('serviceWorker' in navigator) {
       $rootScope.notifications.push({
         message: 'This browser support Service Worker',
@@ -22,8 +23,8 @@
         class: 'fa fa-shield'
       });
 
-      navigator.serviceWorker.register('/service-worker.js', {scope: '/'})
-      .then(function (registration) {
+      //register of serviceWorker
+      navigator.serviceWorker.register('/service-worker.js', {scope: '/'}).then(function (registration) {
         var serviceWorker;
         if (registration.installing) {
           serviceWorker = registration.installing;
@@ -33,8 +34,17 @@
           serviceWorker = registration.active;
         }
 
+        if(navigator.serviceWorker.controller){
+          if(registration.waiting){
+            console.log('nova atualizacao');
+          }
+        }
+
         if (serviceWorker) {
           serviceWorker.addEventListener('statechange', function (e) {
+            // if(e.state == 'installed'){
+            //
+            // }
           });
         }
       });
@@ -55,6 +65,7 @@
       });
     }else{
       idbInit.agency();
+
       idbInit.stops();
       idbInit.stop_times();
 
@@ -65,7 +76,7 @@
       });
     }
 
-    stops_real_time();
+    //stops_real_time();
 
     function stops_real_time(){
 

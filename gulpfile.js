@@ -91,20 +91,23 @@ gulp.task('generate-sw', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}',
+                     'bower_components/font-awesome/**/*',
+                     'bower_components/jquery/dist/jquery.min.js',
+                     'bower_components/angular/angular.min.js',
+                     'bower_components/angular-route/angular-route.min.js',
+                     'bower_components/angular-aria/angular-aria.min.js',
+                     'bower_components/angular-animate/angular-animate.min.js',
+                     'bower_components/firebase/firebase.js',
+                     'bower_components/angularfire/dist/angularfire.js',
+                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                     'bower_components/idbwrapper/idbstore.min.js'],
     stripPrefix: rootDir
   }, callback);
 });
 
-gulp.task('server', ['serve','generate-sw']);
-gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts'], function(callback) {
-  var rootDir = 'dist';
-
-  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
-    stripPrefix: rootDir
-  }, callback);
-});
+gulp.task('server', ['serve']);
+gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts']);
 
 //TODO htmlbuild
 gulp.task('build', function () {
