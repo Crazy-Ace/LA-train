@@ -8,9 +8,15 @@
   function DashboardCtrl($scope, $rootScope) {
       /* jshint validthis: true */
       var vm = this;
-      vm.departure = false;
       vm.arrival = false;
+      vm.departure = false;
       vm.stop_times_filtered = [];
+
+      vm.disableOption = function(stop){
+        if(vm.stationA)
+          return stop.stop_name === vm.stationA.stop_name;
+        return false;
+      };
 
       vm.pointA = function(){
         vm.departure = !vm.departure;
@@ -23,7 +29,7 @@
           getTimes();
           //getConectionsTime();
         }
-      }
+      };
 
       vm.pointB = function(){
         vm.arrival = !vm.arrival;
@@ -36,20 +42,12 @@
           getTimes();
           //getConectionsTime();
         }
-      }
+      };
 
-      vm.disableOption = function(stop){
-        if(vm.stationA)
-          return stop.stop_name === vm.stationA.stop_name;
-        return false;
-      }
+      function duration(time_a, time_b){
+        return ((toSeconds(time_b) / 60) - (toSeconds(time_a) / 60));
+      };
 
-      function isValidOption(){
-        if(typeof vm.stationB === 'object' && typeof vm.stationA === 'object')
-          if(vm.stationA && vm.stationB)
-            return true;
-        return false;
-      }
       function getConections(){
         $rootScope.stops.forEach(function(stop){
           if(vm.stationA.status == "north"){
@@ -60,7 +58,7 @@
               vm.conections.push(stop);
           }
         });
-      }
+      };
 
       function getConectionsTime(){
         var way;
@@ -81,44 +79,7 @@
             }
           }
         }
-
-      }
-
-      function setStatus(){
-        if(vm.stationA.stop_id > vm.stationB.stop_id)
-          vm.stationA.status = "north"
-        else
-          vm.stationA.status = "south"
-      }
-
-      function north(){
-        if(vm.stationA.status == "north")
-          vm.conections.reverse();
-      }
-      function toSeconds(time){
-        return (+time.split(':')[0]) * 60 * 60 + (+time.split(':')[1]) * 60 + (+time.split(':')[2]);
-      }
-
-      function duration(time_a, time_b){
-        return ((toSeconds(time_b) / 60) - (toSeconds(time_a) / 60));
-      }
-
-      function isValidTrip(trip_a, trip_b){
-        var flag;
-
-        if((trip_a == trip_b) && (trip_a <= 999))
-          flag = true;
-        else
-          flag = false;
-
-        if(flag){
-          vm.stop_times_filtered.forEach(function(entry){
-            if(entry.train == trip_a)
-              flag = false;
-          });
-        }
-        return flag;
-      }
+      };
 
       function getTimes(){
         vm.stop_times_filtered = [];
@@ -155,6 +116,46 @@
             }
           }
         }
+      };
+
+      function isValidOption(){
+        if(typeof vm.stationB === 'object' && typeof vm.stationA === 'object')
+          if(vm.stationA && vm.stationB)
+            return true;
+        return false;
+      };
+
+      function isValidTrip(trip_a, trip_b){
+        var flag;
+
+        if((trip_a == trip_b) && (trip_a <= 999))
+          flag = true;
+        else
+          flag = false;
+
+        if(flag){
+          vm.stop_times_filtered.forEach(function(entry){
+            if(entry.train == trip_a)
+              flag = false;
+          });
+        }
+        return flag;
+      };
+
+      function north(){
+        if(vm.stationA.status == "north")
+          vm.conections.reverse();
+      };
+
+      function setStatus(){
+        if(vm.stationA.stop_id > vm.stationB.stop_id)
+          vm.stationA.status = "north"
+        else
+          vm.stationA.status = "south"
+      };
+
+      function toSeconds(time){
+        return (+time.split(':')[0]) * 60 * 60 + (+time.split(':')[1]) * 60 + (+time.split(':')[2]);
       }
     }
 })();
