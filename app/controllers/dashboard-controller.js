@@ -8,13 +8,13 @@
   function DashboardCtrl($scope, $rootScope) {
       /* jshint validthis: true */
       var vm = this;
-      $scope.departure = false;
-      $scope.arrival = false;
-      $scope.stop_times_filtered = [];
+      vm.departure = false;
+      vm.arrival = false;
+      vm.stop_times_filtered = [];
 
       vm.pointA = function(){
-        $scope.departure = !$scope.departure;
-        $scope.conections = [];
+        vm.departure = !vm.departure;
+        vm.conections = [];
 
         if(isValidOption()){
           setStatus();
@@ -25,9 +25,9 @@
         }
       }
 
-      $scope.pointB = function(){
-        $scope.arrival = !$scope.arrival;
-        $scope.conections = [];
+      vm.pointB = function(){
+        vm.arrival = !vm.arrival;
+        vm.conections = [];
 
         if(isValidOption()){
           setStatus();
@@ -38,30 +38,26 @@
         }
       }
 
-      $scope.stations = function(name){
-        $scope.stationA = name;
-      }
-
-      $scope.disableOption = function(stop){
-        if($scope.stationA)
-          return stop.stop_name === $scope.stationA.stop_name;
+      vm.disableOption = function(stop){
+        if(vm.stationA)
+          return stop.stop_name === vm.stationA.stop_name;
         return false;
       }
 
       function isValidOption(){
-        if(typeof $scope.stationB === 'object' && typeof $scope.stationA === 'object')
-          if($scope.stationA && $scope.stationB)
+        if(typeof vm.stationB === 'object' && typeof vm.stationA === 'object')
+          if(vm.stationA && vm.stationB)
             return true;
         return false;
       }
       function getConections(){
         $rootScope.stops.forEach(function(stop){
-          if($scope.stationA.status == "north"){
-            if(stop.stop_id < $scope.stationA.stop_id && stop.stop_id > $scope.stationB.stop_id)
-              $scope.conections.push(stop);
+          if(vm.stationA.status == "north"){
+            if(stop.stop_id < vm.stationA.stop_id && stop.stop_id > vm.stationB.stop_id)
+              vm.conections.push(stop);
           }else {
-            if(stop.stop_id > $scope.stationA.stop_id && stop.stop_id < $scope.stationB.stop_id)
-              $scope.conections.push(stop);
+            if(stop.stop_id > vm.stationA.stop_id && stop.stop_id < vm.stationB.stop_id)
+              vm.conections.push(stop);
           }
         });
       }
@@ -69,17 +65,17 @@
       function getConectionsTime(){
         var way;
 
-        if($scope.stationA.status == "north")way = 0;
-        if($scope.stationA.status == "south")way = 1;
+        if(vm.stationA.status == "north")way = 0;
+        if(vm.stationA.status == "south")way = 1;
 
         for (var j = 0; j < $rootScope.stop_times.length; j++){
-          if($scope.stop_times_filtered[0].train == $rootScope.stop_times[j].trip_id){
-            for (var i = 0; i < $scope.conections.length; i++){
-              if(($scope.conections[i].stop_id + way) == $rootScope.stop_times[j].stop_id){
+          if(vm.stop_times_filtered[0].train == $rootScope.stop_times[j].trip_id){
+            for (var i = 0; i < vm.conections.length; i++){
+              if((vm.conections[i].stop_id + way) == $rootScope.stop_times[j].stop_id){
                 if(i == 0)
-                  $scope.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time);
+                  vm.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time);
                 else
-                  $scope.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time) + $scope.conections[i-1].duration;
+                  vm.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time) + vm.conections[i-1].duration;
 
               }
             }
@@ -89,15 +85,15 @@
       }
 
       function setStatus(){
-        if($scope.stationA.stop_id > $scope.stationB.stop_id)
-          $scope.stationA.status = "north"
+        if(vm.stationA.stop_id > vm.stationB.stop_id)
+          vm.stationA.status = "north"
         else
-          $scope.stationA.status = "south"
+          vm.stationA.status = "south"
       }
 
       function north(){
-        if($scope.stationA.status == "north")
-          $scope.conections.reverse();
+        if(vm.stationA.status == "north")
+          vm.conections.reverse();
       }
       function toSeconds(time){
         return (+time.split(':')[0]) * 60 * 60 + (+time.split(':')[1]) * 60 + (+time.split(':')[2]);
@@ -116,7 +112,7 @@
           flag = false;
 
         if(flag){
-          $scope.stop_times_filtered.forEach(function(entry){
+          vm.stop_times_filtered.forEach(function(entry){
             if(entry.train == trip_a)
               flag = false;
           });
@@ -125,7 +121,7 @@
       }
 
       function getTimes(){
-        $scope.stop_times_filtered = [];
+        vm.stop_times_filtered = [];
 
         var way;
         var time_a = [];
@@ -133,13 +129,13 @@
         var filtered = [];
         var time = {};
 
-        if($scope.stationA.status == "north")way = 0;
-        if($scope.stationA.status == "south")way = 1;
+        if(vm.stationA.status == "north")way = 0;
+        if(vm.stationA.status == "south")way = 1;
 
         $rootScope.stop_times.forEach(function(entry){
-          if(entry.stop_id == ($scope.stationA.stop_id + way))
+          if(entry.stop_id == (vm.stationA.stop_id + way))
             time_a.push(entry);
-          if(entry.stop_id == ($scope.stationB.stop_id + way))
+          if(entry.stop_id == (vm.stationB.stop_id + way))
             time_b.push(entry);
         });
 
@@ -154,7 +150,7 @@
                 position: toSeconds(time_a[i].departure_time)
               };
 
-              $scope.stop_times_filtered.push(time);
+              vm.stop_times_filtered.push(time);
               break loop2;
             }
           }
