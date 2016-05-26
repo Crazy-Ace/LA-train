@@ -1,6 +1,6 @@
 (function () {
   'use strict';
-  angular.module('app').controller('HeaderCtrl', HeaderCtrl);
+  angular.module('app.header', []).controller('HeaderCtrl', HeaderCtrl);
 
   HeaderCtrl.$inject = ['$scope', '$rootScope'];
 

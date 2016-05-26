@@ -1,15 +1,18 @@
 (function () {
   'use strict';
-  angular.module('app').controller('DashboardCtrl', DashboardCtrl);
+
+  angular.module('app.dashboard', []).controller('DashboardCtrl', DashboardCtrl);
 
   DashboardCtrl.$inject = ['$scope', '$rootScope'];
 
   function DashboardCtrl($scope, $rootScope) {
+      /* jshint validthis: true */
+      var vm = this;
       $scope.departure = false;
       $scope.arrival = false;
       $scope.stop_times_filtered = [];
 
-      $scope.pointA = function(){
+      vm.pointA = function(){
         $scope.departure = !$scope.departure;
         $scope.conections = [];
 

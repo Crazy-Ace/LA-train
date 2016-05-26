@@ -11,10 +11,10 @@
                        tooltip-placement="top"
                        uib-tooltip="Click here!"
                        tooltip-append-to-body="true"
-                       ng-click="pointA()">A</a>
+                       ng-click="vm.pointA()">A</a>
 
                     <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB visible-sm visible-xs"
-                       ng-click="pointA()">A</a>
+                       ng-click="vm.pointA()">A</a>
 
                     <div class="tl-content" ng-show="departure">
                         <form role="form" class="ng-pristine ng-valid">
@@ -23,7 +23,7 @@
                                 <span class="ui-select" name="stopSelect" ng-model="stationA">
                                   <select ng-model="stationA"
                                           ng-options="stop.stop_name for stop in stops | orderBy:'stop_name'"
-                                          ng-change="pointA()">
+                                          ng-change="vm.pointA()">
                                     <option value=""> <i class="fa fa-train" aria-hidden="true"></i> -- choose station --</option>
                                   </select>
                                 </span>
