@@ -6,42 +6,19 @@
   DashboardCtrl.$inject = ['$scope', '$rootScope'];
 
   function DashboardCtrl($scope, $rootScope) {
-      /* jshint validthis: true */
       var vm = this;
+
       vm.arrival = false;
       vm.departure = false;
       vm.stop_times_filtered = [];
+      vm.disableOption = disableOption;
+      vm.pointA = pointA;
+      vm.pointB = pointB;
 
-      vm.disableOption = function(stop){
+      function disableOption(stop){
         if(vm.stationA)
           return stop.stop_name === vm.stationA.stop_name;
         return false;
-      };
-
-      vm.pointA = function(){
-        vm.departure = !vm.departure;
-        vm.conections = [];
-
-        if(isValidOption()){
-          setStatus();
-          getConections();
-          north();
-          getTimes();
-          //getConectionsTime();
-        }
-      };
-
-      vm.pointB = function(){
-        vm.arrival = !vm.arrival;
-        vm.conections = [];
-
-        if(isValidOption()){
-          setStatus();
-          getConections();
-          north();
-          getTimes();
-          //getConectionsTime();
-        }
       };
 
       function duration(time_a, time_b){
@@ -140,6 +117,32 @@
           });
         }
         return flag;
+      };
+
+      function pointA(){
+        vm.departure = !vm.departure;
+        vm.conections = [];
+
+        if(isValidOption()){
+          setStatus();
+          getConections();
+          north();
+          getTimes();
+          //getConectionsTime();
+        }
+      };
+
+      function pointB(){
+        vm.arrival = !vm.arrival;
+        vm.conections = [];
+
+        if(isValidOption()){
+          setStatus();
+          getConections();
+          north();
+          getTimes();
+          //getConectionsTime();
+        }
       };
 
       function north(){
