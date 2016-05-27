@@ -14,3 +14,13 @@
 .ui-timline-container {
     padding: 25px;
 }
+
+.my-title{
+  font-family: 'Rancho', cursive;
+}
+
+.my-title-large{
+  font-family: 'Rancho', cursive;
+  font-size: xx-large;
+  margin-left: 25%;
+}
