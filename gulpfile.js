@@ -53,8 +53,8 @@ gulp.task('compress', function() {
                   'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                   'bower_components/idbwrapper/idbstore.min.js',
                   'app/app.js',
-                  'app/routes.js',
-                  'app/config.js',
+                  'app/app.routes.js',
+                  'app/app.config.js',
                   'app/controllers/*.js',
                   'app/factories/*.js'])
     //.pipe(uglify())
