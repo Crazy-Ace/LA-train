@@ -87,7 +87,7 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('generate-sw', function(callback) {
+gulp.task('generate-sw-dev', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
@@ -102,6 +102,15 @@ gulp.task('generate-sw', function(callback) {
                      'bower_components/angularfire/dist/angularfire.js',
                      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                      'bower_components/idbwrapper/idbstore.min.js'],
+    stripPrefix: rootDir
+  }, callback);
+});
+
+gulp.task('generate-sw-dist', function(callback) {
+  var rootDir = 'dist';
+
+  swPrecache.write(path.join(rootDir, 'service-worker.js'), {
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
     stripPrefix: rootDir
   }, callback);
 });

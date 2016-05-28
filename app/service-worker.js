@@ -25,6 +25,7 @@
 'use strict';
 
 
+//testesdfsdfsdfsdasdasdsdfsdfsdfsdfasdasdasdasdfasdsdasd asdasdsdfsdfsdf asdasdasd asd
 
 
 
@@ -241,7 +242,3 @@ self.addEventListener('fetch', function(event) {
     }
   }
 });
-
-
-
-
