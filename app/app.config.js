@@ -1,14 +1,10 @@
 (function () {
 
-  angular.module('app').constant('APP_SETTINGS', {
-    "FIREBASE_URL": "https://udacitytwo.firebaseio.com/"
-  });
-
-  angular.module('app').run(function ($rootScope, $location, APP_SETTINGS, idbInit, $http) {
-
+  angular.module('app').run(function ($rootScope, $location, idbInit, $http) {
+    //deletar
     if(!$rootScope.stops)
       $rootScope.stops = [];
-
+      //deletar
     if(!$rootScope.stop_times)
       $rootScope.stop_times = [];
 
@@ -104,16 +100,39 @@
         class: 'fa fa-database'
       });
     }else{
-      idbInit.agency();
 
-      idbInit.stops();
-      idbInit.stop_times();
+      // idbInit.agency().then(function(result) {
+      //   var teste = result;
+      //   console.log(result); // "Stuff worked!"
+      // }, function(err) {
+      //   console.log(err); // Error: "It broke"
+      // });
+      //
+      // idbInit.stop_times().then(function(result) {
+      //   var teste = result;
+      //   console.log(result); // "Stuff worked!"
+      // }, function(err) {
+      //   console.log(err); // Error: "It broke"
+      // });
 
       $rootScope.notifications.push({
         message: 'This browser support IndexedDB',
         type: 'btn-success',
         class: 'fa fa-database'
       });
+    }
+
+    initFirebase();
+
+    function initFirebase(){
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyC6m1AjB9bJqxnJvY2LtH6ch1nuI6wjacQ",
+        authDomain: "udacitytwo.firebaseapp.com",
+        databaseURL: "https://udacitytwo.firebaseio.com",
+        storageBucket: "udacitytwo.appspot.com",
+      };
+      firebase.initializeApp(config);
     }
   });
 })();

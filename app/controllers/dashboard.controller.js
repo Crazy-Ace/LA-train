@@ -3,9 +3,9 @@
 
   angular.module('app.dashboard', []).controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$scope', '$rootScope'];
+  DashboardCtrl.$inject = ['$scope', 'idbInit'];
 
-  function DashboardCtrl($scope, $rootScope) {
+  function DashboardCtrl($scope, idbInit) {
       var vm = this;
 
       vm.arrival = false;
@@ -14,6 +14,26 @@
       vm.disableOption = disableOption;
       vm.pointA = pointA;
       vm.pointB = pointB;
+      vm.stops = [];
+
+      activate();
+
+      function activate(){
+        var teste = idbInit.getStops();
+        /*getStops().then(function(result) {
+          result.forEach(function(stop){
+            stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+            vm.stops.push(stop); //online
+          });
+
+        }, function(err) {
+          vm.stops = idbInit.stops();
+
+          // idbInit.stops().then(function(result) {
+          //   vm.stops = result; //offline
+          // });
+        });*/
+      }
 
       function disableOption(stop){
         if(vm.stationA)
@@ -57,6 +77,33 @@
           }
         }
       };
+
+      function getStops(){
+        var ref_stop = firebase.database().ref('stops');
+
+        return new Promise(function(resolve, reject) {
+          ref_stop.on('value', function(data) {
+            resolve(data.val());
+          });
+        });
+
+
+        // ref_stop.on('child_changed', function(data) {
+        //   setCommentValues(postElement, data.key, data.val().text, data.val().author);
+        // });
+        /*
+        var ref_stop = new Firebase(APP_SETTINGS.FIREBASE_URL + '/stops');
+
+        ref_stop.on("value", function(snapshot) {
+            var teste;
+            snapshot.forEach(function(childSnapshot) {
+                teste.push(childSnapshot.val());
+            });
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
+        */
+      }
 
       function getTimes(){
         vm.stop_times_filtered = [];

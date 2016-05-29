@@ -22,7 +22,7 @@
                                 <label for="exampleInputEmail1">Train Station</label><br>
                                 <span class="ui-select" name="stopSelect" ng-model="vm.stationA">
                                   <select ng-model="vm.stationA"
-                                          ng-options="stop.stop_name for stop in stops | orderBy:'stop_name'"
+                                          ng-options="stop.stop_name for stop in vm.stops | orderBy:'stop_name'"
                                           ng-change="vm.pointA()">
                                     <option value=""> <i class="fa fa-train" aria-hidden="true"></i> -- choose station --</option>
                                   </select>
