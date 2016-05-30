@@ -15,6 +15,7 @@
       vm.pointA = pointA;
       vm.pointB = pointB;
       vm.stops = [];
+      vm.stop_times = [];
 
       activate();
 
@@ -65,14 +66,14 @@
         if(vm.stationA.status == "north")way = 0;
         if(vm.stationA.status == "south")way = 1;
 
-        for (var j = 0; j < $rootScope.stop_times.length; j++){
-          if(vm.stop_times_filtered[0].train == $rootScope.stop_times[j].trip_id){
+        for (var j = 0; j < vm.stop_times.length; j++){
+          if(vm.stop_times_filtered[0].train == vm.stop_times[j].trip_id){
             for (var i = 0; i < vm.conections.length; i++){
-              if((vm.conections[i].stop_id + way) == $rootScope.stop_times[j].stop_id){
+              if((vm.conections[i].stop_id + way) == vm.stop_times[j].stop_id){
                 if(i == 0)
-                  vm.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time);
+                  vm.conections[i].duration = duration(vm.stop_times[j].arrival_time, vm.stop_times[j+1].arrival_time);
                 else
-                  vm.conections[i].duration = duration($rootScope.stop_times[j].arrival_time, $rootScope.stop_times[j+1].arrival_time) + vm.conections[i-1].duration;
+                  vm.conections[i].duration = duration(vm.stop_times[j].arrival_time, vm.stop_times[j+1].arrival_time) + vm.conections[i-1].duration;
 
               }
             }
@@ -119,7 +120,7 @@
         if(vm.stationA.status == "north")way = 0;
         if(vm.stationA.status == "south")way = 1;
 
-        $rootScope.stop_times.forEach(function(entry){
+        vm.stop_times.forEach(function(entry){
           if(entry.stop_id == (vm.stationA.stop_id + way))
             time_a.push(entry);
           if(entry.stop_id == (vm.stationB.stop_id + way))
@@ -180,6 +181,12 @@
               if(idbInit.isStop(stop, vm.stops))
                 vm.stops.push(stop);
             });
+          });
+        });
+
+        idbInit.getStopTimes().then(function(result) {
+          result.getAll(function(data){
+            vm.stop_times.push(data);
           });
         });
       };

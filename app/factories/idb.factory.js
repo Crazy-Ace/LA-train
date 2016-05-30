@@ -4,6 +4,7 @@
   angular.module('app').factory('idbInit', function(jsonFactory, $rootScope){
     var stops;
     var agency;
+    var stop_times;
 
     function agencyIDB() {
       return new Promise(function(resolve, reject) {
@@ -35,6 +36,19 @@
       });
     };
 
+    function stopTimesIDB() {
+      return new Promise(function(resolve, reject) {
+        stop_times = new IDBStore({
+          dbVersion: 2,
+          storeName: 'stop_times',
+          onStoreReady: function(){
+            populateIDB(stop_times, jsonFactory.stop_times());
+            resolve(stop_times);
+          }
+        });
+      });
+    };
+
     function populateIDB(idb, json) {
       if(idb){
         json.forEach(function(entry) {
@@ -53,10 +67,10 @@
     };
 
     return {
-      isStop    : isStop,
-      getStops  : stopIDB,
-      getAgency : agencyIDB
-
+      isStop        : isStop,
+      getStops      : stopIDB,
+      getAgency     : agencyIDB,
+      getStopTimes  : stopTimesIDB
     };
 
 
