@@ -36,9 +36,11 @@
     };
 
     function populateIDB(idb, json) {
-      json.forEach(function(entry) {
-        idb.put(entry);
-      });
+      if(idb){
+        json.forEach(function(entry) {
+          idb.put(entry);
+        });
+      }
     };
 
     function isStop(stop, array){
