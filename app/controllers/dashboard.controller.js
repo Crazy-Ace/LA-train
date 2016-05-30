@@ -19,7 +19,9 @@
       activate();
 
       function activate(){
-        var teste = idbInit.getStops();
+
+        offline();
+
         /*getStops().then(function(result) {
           result.forEach(function(stop){
             stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
@@ -46,7 +48,7 @@
       };
 
       function getConections(){
-        $rootScope.stops.forEach(function(stop){
+        vm.stops.forEach(function(stop){
           if(vm.stationA.status == "north"){
             if(stop.stop_id < vm.stationA.stop_id && stop.stop_id > vm.stationB.stop_id)
               vm.conections.push(stop);
@@ -166,7 +168,23 @@
         return flag;
       };
 
-      function pointA(){
+      function online() {
+
+      }
+
+      function offline() {
+        idbInit.getStops().then(function(result) {
+          result.getAll(function(data){
+            data.forEach(function(stop){
+              stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+              if(idbInit.isStop(stop, vm.stops))
+                vm.stops.push(stop);
+            });
+          });
+        });
+      };
+
+      function pointA() {
         vm.departure = !vm.departure;
         vm.conections = [];
 

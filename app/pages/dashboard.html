@@ -64,7 +64,7 @@
                                   <label for="exampleInputEmail1">Train Station</label><br>
                                   <span class="ui-select">
                                     <select ng-model="vm.stationB"
-                                            ng-options="stop.stop_name disable when vm.disableOption(stop) for stop in stops | orderBy:'stop_name'"
+                                            ng-options="stop.stop_name disable when vm.disableOption(stop) for stop in vm.stops | orderBy:'stop_name'"
                                             ng-change="vm.pointB()">
                                       <option value="">-- choose station --</option>
                                     </select>

@@ -2,29 +2,41 @@
   'use strict';
 
   angular.module('app').factory('idbInit', function(jsonFactory, $rootScope){
+    var stops;
+    var agency;
+
+    function agencyIDB() {
+      return new Promise(function(resolve, reject) {
+        agency = new IDBStore({
+          dbVersion: 1,
+          storeName: 'agency',
+          keyPath: 'agency_id',
+          autoIncrement: false,
+          onStoreReady: function(){
+            populateIDB(agency, jsonFactory.agency());
+            resolve(agency);
+          }
+        });
+      });
+    };
 
     function stopIDB() {
       return new Promise(function(resolve, reject) {
-        var stops = new IDBStore({
+        stops = new IDBStore({
           dbVersion: 1,
           storeName: 'stops',
           keyPath: 'stop_id',
           autoIncrement: false,
           onStoreReady: function(){
-            jsonFactory.stops().forEach(function(entry) {
-              stops.put(entry);
-            });
-
+            populateIDB(stops, jsonFactory.stops());
             resolve(stops);
           }
         });
       });
-
     };
 
     function populateIDB(idb, json) {
       json.forEach(function(entry) {
-        var teste = 1;
         idb.put(entry);
       });
     };
@@ -38,33 +50,11 @@
       return flag;
     };
 
-    function getStops() {
-      return new Promise(function(resolve, reject) {
-        var idb = stopIDB();
-        var stops = [];
-
-        idb.then(function(result) {
-          //populateIDB(result, jsonFactory.stops());
-          var promise = new Promise(function(resolve, reject) {
-            result.getAll(function(data){
-              resolve(data);
-            });
-          });
-
-          promise.then(function(result){
-            result.forEach(function(stop){
-              stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
-              if(isStop(stop, stops))
-                stops.push(stop);
-            });
-            resolve(stops);
-          });
-        });
-      });
-    };
-
     return {
-      getStops: getStops
+      isStop    : isStop,
+      getStops  : stopIDB,
+      getAgency : agencyIDB
+
     };
 
 
