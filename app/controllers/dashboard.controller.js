@@ -20,22 +20,7 @@
       activate();
 
       function activate(){
-
         offline();
-
-        /*getStops().then(function(result) {
-          result.forEach(function(stop){
-            stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
-            vm.stops.push(stop); //online
-          });
-
-        }, function(err) {
-          vm.stops = idbInit.stops();
-
-          // idbInit.stops().then(function(result) {
-          //   vm.stops = result; //offline
-          // });
-        });*/
       }
 
       function disableOption(stop){
@@ -89,23 +74,6 @@
             resolve(data.val());
           });
         });
-
-
-        // ref_stop.on('child_changed', function(data) {
-        //   setCommentValues(postElement, data.key, data.val().text, data.val().author);
-        // });
-        /*
-        var ref_stop = new Firebase(APP_SETTINGS.FIREBASE_URL + '/stops');
-
-        ref_stop.on("value", function(snapshot) {
-            var teste;
-            snapshot.forEach(function(childSnapshot) {
-                teste.push(childSnapshot.val());
-            });
-        }, function (errorObject) {
-            console.log("The read failed: " + errorObject.code);
-        });
-        */
       }
 
       function getTimes(){
@@ -176,7 +144,7 @@
       function offline() {
         idbInit.getStops().then(function(result) {
           result.getAll(function(data){
-            data.forEach(function(stop){
+            data[0].forEach(function(stop){
               stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
               if(idbInit.isStop(stop, vm.stops))
                 vm.stops.push(stop);

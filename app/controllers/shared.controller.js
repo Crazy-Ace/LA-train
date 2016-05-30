@@ -22,8 +22,6 @@
         $scope.checked = navigator.onLine;
     });
 
-
-
     $scope.refresh = function(index){
       $rootScope.notifications.splice(index, 1);
     }
