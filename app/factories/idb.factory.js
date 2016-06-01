@@ -21,6 +21,14 @@
       });
     };
 
+    function count(idb) {
+      var count = 0;
+      idb.getAll(function(data){
+        count = data.length;
+      });
+      return count;
+    }
+
     function stopIDB() {
       return new Promise(function(resolve, reject) {
         stops = new IDBStore({
@@ -50,11 +58,9 @@
     };
 
     function populateIDB(idb, json) {
-      if(idb){
         json.then(function(data) {
-          idb.put(data);
+            idb.put(data);
         });
-      }
     };
 
     function isStop(stop, array){

@@ -20,7 +20,8 @@
       activate();
 
       function activate(){
-        offline();
+        //if(!online())
+          offline();
       }
 
       function disableOption(stop){
@@ -144,17 +145,19 @@
       function offline() {
         idbInit.getStops().then(function(result) {
           result.getAll(function(data){
-            data[0].forEach(function(stop){
-              stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
-              if(idbInit.isStop(stop, vm.stops))
-                vm.stops.push(stop);
-            });
+            if(data[0]) {
+              data[0].forEach(function(stop){
+                stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+                if(idbInit.isStop(stop, vm.stops))
+                  vm.stops.push(stop);
+              });
+            }
           });
         });
 
         idbInit.getStopTimes().then(function(result) {
           result.getAll(function(data){
-            vm.stop_times.push(data);
+            vm.stop_times.push(data[0]);
           });
         });
       };
