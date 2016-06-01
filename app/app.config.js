@@ -13,7 +13,7 @@
       });
 
       //register of serviceWorker
-      navigator.serviceWorker.register('/service-worker.js', {scope: '/'}).then(function (registration) {
+      navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
         /*var serviceWorker;
         if (registration.installing) {
           serviceWorker = registration.installing;
@@ -93,21 +93,6 @@
         class: 'fa fa-database'
       });
     }else{
-
-      // idbInit.agency().then(function(result) {
-      //   var teste = result;
-      //   console.log(result); // "Stuff worked!"
-      // }, function(err) {
-      //   console.log(err); // Error: "It broke"
-      // });
-      //
-      // idbInit.stop_times().then(function(result) {
-      //   var teste = result;
-      //   console.log(result); // "Stuff worked!"
-      // }, function(err) {
-      //   console.log(err); // Error: "It broke"
-      // });
-
       $rootScope.notifications.push({
         message: 'This browser support IndexedDB',
         type: 'btn-success',
