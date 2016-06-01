@@ -3,9 +3,9 @@
 
   angular.module('app.dashboard', []).controller('DashboardCtrl', DashboardCtrl);
 
-  DashboardCtrl.$inject = ['$scope', 'idbInit'];
+  DashboardCtrl.$inject = ['$scope', 'idbInit', 'jsonFactory'];
 
-  function DashboardCtrl($scope, idbInit) {
+  function DashboardCtrl($scope, idbInit, jsonFactory) {
       var vm = this;
 
       vm.arrival = false;
@@ -20,7 +20,7 @@
       activate();
 
       function activate(){
-        //if(!online())
+        if(!online())
           offline();
       }
 
@@ -139,7 +139,17 @@
       };
 
       function online() {
+        if(navigator.onLine) {
+          idbInit.getStops().then(function(result) {
+            idbInit.populateIDB(result, jsonFactory.stops());
+          });
 
+          idbInit.getStopTimes().then(function(result) {
+            idbInit.populateIDB(result, jsonFactory.stop_times())
+          });
+          return true;
+        }
+        return false;
       }
 
       function offline() {

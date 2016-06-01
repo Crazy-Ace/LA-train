@@ -14,7 +14,7 @@
           keyPath: 'agency_id',
           autoIncrement: false,
           onStoreReady: function(){
-            populateIDB(agency, jsonFactory.agency());
+            //populateIDB(agency, jsonFactory.agency());
             resolve(agency);
           }
         });
@@ -37,7 +37,7 @@
           keyPath: 'stop_id',
           autoIncrement: false,
           onStoreReady: function(){
-            populateIDB(stops, jsonFactory.stops());
+            //populateIDB(stops, jsonFactory.stops());
             resolve(stops);
           }
         });
@@ -50,7 +50,7 @@
           dbVersion: 2,
           storeName: 'stop_times',
           onStoreReady: function(){
-            populateIDB(stop_times, jsonFactory.stop_times());
+            //populateIDB(stop_times, jsonFactory.stop_times());
             resolve(stop_times);
           }
         });
@@ -76,7 +76,8 @@
       isStop        : isStop,
       getStops      : stopIDB,
       getAgency     : agencyIDB,
-      getStopTimes  : stopTimesIDB
+      getStopTimes  : stopTimesIDB,
+      populateIDB   : populateIDB
     };
   });
 })();
