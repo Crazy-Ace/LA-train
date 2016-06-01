@@ -5,7 +5,7 @@
         'ngAnimate',
         'ngAria',
         'ui.bootstrap',
-        'firebase',
+        //'firebase',
         'app.dashboard',
         'app.header'
     ]);

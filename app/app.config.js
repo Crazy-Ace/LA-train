@@ -1,13 +1,6 @@
 (function () {
 
   angular.module('app').run(function ($rootScope, $location, idbInit, $http) {
-    //deletar
-    if(!$rootScope.stops)
-      $rootScope.stops = [];
-      //deletar
-    if(!$rootScope.stop_times)
-      $rootScope.stop_times = [];
-
     if(!$rootScope.notifications)
       $rootScope.notifications = [];
 
@@ -122,7 +115,7 @@
       });
     }
 
-    initFirebase();
+    //initFirebase();
 
     function initFirebase(){
       // Initialize Firebase
