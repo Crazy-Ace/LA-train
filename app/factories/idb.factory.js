@@ -14,7 +14,6 @@
           keyPath: 'agency_id',
           autoIncrement: false,
           onStoreReady: function(){
-            //populateIDB(agency, jsonFactory.agency());
             resolve(agency);
           }
         });
@@ -22,11 +21,11 @@
     };
 
     function count(idb) {
-      var count = 0;
-      idb.getAll(function(data){
-        count = data.length;
+      return new Promise(function(resolve, reject) {
+        idb.getAll(function(data){
+          resolve(data.length);
+        });
       });
-      return count;
     }
 
     function stopIDB() {
@@ -37,7 +36,6 @@
           keyPath: 'stop_id',
           autoIncrement: false,
           onStoreReady: function(){
-            //populateIDB(stops, jsonFactory.stops());
             resolve(stops);
           }
         });
@@ -50,17 +48,45 @@
           dbVersion: 2,
           storeName: 'stop_times',
           onStoreReady: function(){
-            //populateIDB(stop_times, jsonFactory.stop_times());
             resolve(stop_times);
           }
         });
       });
     };
 
-    function populateIDB(idb, json) {
-        json.then(function(data) {
-            idb.put(data);
+    function populateIDB() {
+
+      agencyIDB().then(function(agency) {
+        count(agency).then(function(qtd) {
+          if(qtd == 0){
+            jsonFactory.agency().then(function(data) {
+              agency.put(data);
+            });
+          }
         });
+      });
+
+      stopIDB().then(function(stop) {
+        count(stop).then(function(qtd) {
+          if(qtd == 0){
+            jsonFactory.stops().then(function(data) {
+              stop.put(data);
+            });
+          }
+        });
+      });
+
+      stopTimesIDB().then(function(stop_times) {
+        count(stop_times).then(function(qtd) {
+          if(qtd == 0){
+            jsonFactory.stop_times().then(function(data) {
+              stop_times.put(data);
+            });
+          }
+        });
+      });
+
+
     };
 
     function isStop(stop, array){
@@ -73,11 +99,11 @@
     };
 
     return {
-      isStop        : isStop,
-      getStops      : stopIDB,
-      getAgency     : agencyIDB,
-      getStopTimes  : stopTimesIDB,
-      populateIDB   : populateIDB
+      isStop              : isStop,
+      getObjectStops      : stopIDB,
+      getObjectAgency     : agencyIDB,
+      getObjectStopTimes  : stopTimesIDB,
+      populateIDB         : populateIDB
     };
   });
 })();

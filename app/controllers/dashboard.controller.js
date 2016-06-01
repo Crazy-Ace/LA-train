@@ -20,8 +20,8 @@
       activate();
 
       function activate(){
-        if(!online())
-          offline();
+        idbInit.populateIDB();
+        //offline();
       }
 
       function disableOption(stop){
@@ -138,38 +138,24 @@
         return flag;
       };
 
-      function online() {
-        if(navigator.onLine) {
-          idbInit.getStops().then(function(result) {
-            idbInit.populateIDB(result, jsonFactory.stops());
-          });
-
-          idbInit.getStopTimes().then(function(result) {
-            idbInit.populateIDB(result, jsonFactory.stop_times())
-          });
-          return true;
-        }
-        return false;
-      }
-
       function offline() {
-        idbInit.getStops().then(function(result) {
-          result.getAll(function(data){
-            if(data[0]) {
-              data[0].forEach(function(stop){
-                stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
-                if(idbInit.isStop(stop, vm.stops))
-                  vm.stops.push(stop);
-              });
-            }
-          });
+
+        idbInit.getObjectStops().then(function(stopObject) {
+
+          var onsuccess = function(data){
+            data[0].forEach(function(stop){
+              stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+              if(idbInit.isStop(stop, vm.stops))
+                vm.stops.push(stop);
+            });
+          }
+          var onerror = function(error){
+            console.log('Oh noes, sth went wrong!', error);
+          }
+
+          stopObject.getAll(onsuccess, onerror);
         });
 
-        idbInit.getStopTimes().then(function(result) {
-          result.getAll(function(data){
-            vm.stop_times.push(data[0]);
-          });
-        });
       };
 
       function pointA() {
