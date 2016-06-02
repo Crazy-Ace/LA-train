@@ -26,7 +26,24 @@
 }
 
 .app>.header-container.header-fixed+.main-container {
-  padding-top: 25px; 
+  padding-top: 25px;
+}
+
+.am-pm{
+  color: #b0b0b1;
+  font-size: 11px;
+}
+
+.trip-duration {
+  color: #b0b0b1;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #e87352;
+  font-size: 11px;
+}
+
+.way-title {
+  color: #e87352;
 }
 
 /*Temporary Fix for Font Awesome offline Cache */

@@ -89,10 +89,20 @@
     <table class="table">
           <tbody ng-show="vm.stationA && vm.stationB">
               <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'">
-                  <td><span class="label label-warning">{{stop_t.train}}</span></td>
-                  <td><span class="label label-info">{{ stop_t.arrival | limitTo : 5 }}</span></td>
-                  <td><span class="label label-info">{{ stop_t.departure | limitTo : 5 }}</span></td>
-                  <td><span class="label label-info">{{ stop_t.duration }}min</span></td>
+                  <td>
+                    <span class="label label-info">
+                      <i class="fa fa-train" aria-hidden="true"></i>&nbsp;{{stop_t.train}}
+                    </span>
+                  </td>
+                  <td>
+                    <strong><span>{{ stop_t.arrival | limitTo : 5 }}</span></strong>
+                    <span class="am-pm">{{ stop_t.arrival | limitTo : 2 : 5}}</span>
+                  </td>
+                  <td><span class="trip-duration">{{ stop_t.duration}}min</span></td>
+                  <td>
+                    <strong><span>{{ stop_t.departure | limitTo : 5 }}</span></strong>
+                    <span class="am-pm">{{ stop_t.departure | limitTo : 2 : 5}}</span>
+                  </td>
               </tr>
           </tbody>
       </table>

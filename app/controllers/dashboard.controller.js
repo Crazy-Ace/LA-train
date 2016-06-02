@@ -130,8 +130,8 @@
             if(isValidTrip(time_a[i].trip_id, time_b[j].trip_id)){
               time = {
                 train: time_a[i].trip_id,
-                arrival: time_a[i].departure_time,
-                departure: time_b[j].arrival_time,
+                arrival: formatAMPM(time_a[i].departure_time),
+                departure: formatAMPM(time_b[j].arrival_time),
                 duration: duration(time_a[i].departure_time, time_b[j].arrival_time),
                 position: toSeconds(time_a[i].departure_time)
               };
@@ -141,6 +141,17 @@
             }
           }
         }
+      };
+
+      function formatAMPM(time) {
+        var hours = parseInt(time.substr(0, 2));
+        var minutes = parseInt(time.substr(3, 2));
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours > 9 ? hours + ':' + minutes + ampm : '0'+hours + ':' + minutes + ampm;
+        return strTime;
       };
 
       function isValidOption(){
