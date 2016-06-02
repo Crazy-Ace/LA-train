@@ -91,7 +91,18 @@ gulp.task('generate-sw-dev', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico}',
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}',
+                    //  'app/controllers/**/*.js',
+                    //  'app/factories/**/*.js',
+                    //  'app/funcs/**/*.js',
+                    //  'app/images/**/*.png',
+                    //  'app/pages/**/*.html',
+                    //  'app/styles/**/*.css',
+                    //  'app/app.config.js',
+                    //  'app/app.js',
+                    //  'app/app.routes.js',
+                    //  'app/index.htlm',
+                    //  'app/favicon.ico',
                      'bower_components/font-awesome/**/*',
                      'bower_components/jquery/dist/jquery.min.js',
                      'bower_components/angular/angular.min.js',

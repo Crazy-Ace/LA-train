@@ -20,7 +20,7 @@
       activate();
 
       function activate(){
-        idbInit.populateIDB();
+        //idbInit.populateIDB();
         //offline();
       }
 

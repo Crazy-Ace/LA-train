@@ -42,6 +42,12 @@ Go to root folder of project, open your terminal and then follow steps:
 - Generate dist folder with all needs such as minify, uglify, compress and others.  
 `$ gulp dist`
 
+##Issue
+`An unknown error occurred when fetching the script.  
+service-worker.js:1 GET http://localhost:3000/service-worker.js net::ERR_INTERNET_DISCONNECTED`  
+
+This is a harmless issue, a bug in chrome that so far not fixed. You can unregister this offender by visiting: `chrome://serviceworker-internals/`.
+
 ##Features  
 **Version 1.0.0**  
 - First commit
