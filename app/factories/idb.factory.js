@@ -54,9 +54,28 @@
       });
     };
 
-    function populateIDB() {
-
-      agencyIDB().then(function(agency) {
+    function populateIDB(store, who) {
+      return new Promise(function(resolve, reject) {
+        count(store).then(function(qtd) {
+          if(qtd == 0){
+            switch(who){
+              case 'stops':
+                jsonFactory.stops().then(function(data) {
+                  resolve(store.put(data));
+                });
+                break;
+              case 'stop_times':
+                jsonFactory.stop_times().then(function(data) {
+                  resolve(store.put(data));
+                });
+                break;
+            }
+          }else{
+            resolve('data already exist');
+          }
+        });
+      });
+      /*agencyIDB().then(function(agency) {
         count(agency).then(function(qtd) {
           if(qtd == 0){
             jsonFactory.agency().then(function(data) {
@@ -84,9 +103,7 @@
             });
           }
         });
-      });
-
-
+      });*/
     };
 
     function isStop(stop, array){
@@ -95,7 +112,47 @@
         if(entry.stop_name == stop.stop_name)
           flag = false;
       });
+
+      if(stop.stop_id > 100000)
+        flag = false;
+        
       return flag;
+    };
+
+    function getStops(){
+      return new Promise(function(resolve, reject) {
+
+        stopIDB().then(function(store) {
+          var onsuccess = function(data){
+            resolve(data[0]);
+          }
+          var onerror = function(error){
+            $rootScope.notifications.push({
+              message: 'Was not possible to fetch stops',
+              type: 'btn-danger',
+              class: 'fa fa-train'
+            });
+          }
+
+          store.getAll(onsuccess, onerror);
+        });
+      });
+    };
+
+    function getObjectData(store) {
+        var onsuccess = function(data){
+          return data[0];
+        };
+
+        var onerror = function(error){
+          $rootScope.notifications.push({
+            message: 'Was not possible to fetch data',
+            type: 'btn-danger',
+            class: 'fa fa-train'
+          });
+        };
+
+        store.getAll(onsuccess, onerror);
     };
 
     return {
@@ -103,7 +160,9 @@
       getObjectStops      : stopIDB,
       getObjectAgency     : agencyIDB,
       getObjectStopTimes  : stopTimesIDB,
-      populateIDB         : populateIDB
+      populateIDB         : populateIDB,
+      getStops            : getStops,
+      getObjectData       : getObjectData
     };
   });
 })();

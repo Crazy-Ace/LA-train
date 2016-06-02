@@ -5,7 +5,7 @@
         <article class="tl-item">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
-                    <div class="tl-time">{{vm.stationA && vm.stationA.stop_name || 'Arrival Train Station'}}</div>
+                    <div class="tl-time">{{vm.stationA && vm.stationA.stop_name || 'Departure Station'}}</div>
 
                     <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB hidden-sm hidden-xs"
                        tooltip-placement="top"
@@ -47,7 +47,7 @@
               <div class="tl-body">
                   <div class="tl-entry">
 
-                      <div class="tl-time">{{vm.stationB && vm.stationB.stop_name || 'Arrival Train Station'}}</div>
+                      <div class="tl-time">{{vm.stationB && vm.stationB.stop_name || 'Arrival Station'}}</div>
 
                       <a class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-info btn-pointAB hidden-sm hidden-xs"
                          tooltip-placement="bottom"
@@ -81,16 +81,12 @@
   <br>
   <br>
 
+  <div class="text-center">
+    <h4>{{vm.way}}</h4>
+  </div>
+
   <div class="col-md-4 col-sm-12">
     <table class="table">
-          <thead>
-              <tr>
-                  <th>Train</th>
-                  <th>Departure</th>
-                  <th>Arrive</th>
-                  <th>Duration</th>
-              </tr>
-          </thead>
           <tbody ng-show="vm.stationA && vm.stationB">
               <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'">
                   <td><span class="label label-warning">{{stop_t.train}}</span></td>

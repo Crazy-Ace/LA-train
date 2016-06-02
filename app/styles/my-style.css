@@ -25,6 +25,10 @@
   margin-left: 25%;
 }
 
+.app>.header-container.header-fixed+.main-container {
+  padding-top: 25px; 
+}
+
 /*Temporary Fix for Font Awesome offline Cache */
 @font-face {
      font-family: 'FontAwesome';

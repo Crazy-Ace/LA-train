@@ -20,9 +20,35 @@
       activate();
 
       function activate(){
-        //idbInit.populateIDB();
-        //offline();
-      }
+        var stopObject = idbInit.getObjectStops();
+        var stop_timesObject = idbInit.getObjectStopTimes();
+
+        Promise.all([stopObject, stop_timesObject]).then(function(stores) {
+          var p1 = idbInit.populateIDB(stores[0], 'stops');
+          var p2 = idbInit.populateIDB(stores[1], 'stop_times');
+
+          Promise.all([p1, p2]).then(function(idbs) {
+
+            stores[0].getAll(function(data) {
+              data[0].forEach(function(stop){
+                stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+                if(idbInit.isStop(stop, vm.stops))
+                  vm.stops.push(stop);
+              });
+            });
+
+            stores[1].getAll(function(data) {
+              data[0].forEach(function(stopTimes){
+                  vm.stop_times.push(stopTimes);
+              });
+            });
+
+          });
+        });
+      };
+
+      function getData(){
+      };
 
       function disableOption(stop){
         if(vm.stationA)
@@ -37,12 +63,15 @@
       function getConections(){
         vm.stops.forEach(function(stop){
           if(vm.stationA.status == "north"){
+            vm.way = 'Northbound Service';
             if(stop.stop_id < vm.stationA.stop_id && stop.stop_id > vm.stationB.stop_id)
               vm.conections.push(stop);
           }else {
+            vm.way = 'Southbound Service';
             if(stop.stop_id > vm.stationA.stop_id && stop.stop_id < vm.stationB.stop_id)
               vm.conections.push(stop);
           }
+          vm.conections.sort(function(a, b){return a.stop_id - b.stop_id});
         });
       };
 
@@ -150,6 +179,7 @@
             });
           }
           var onerror = function(error){
+
             console.log('Oh noes, sth went wrong!', error);
           }
 
@@ -161,6 +191,7 @@
       function pointA() {
         vm.departure = !vm.departure;
         vm.conections = [];
+        vm.way = '';
 
         if(isValidOption()){
           setStatus();
@@ -174,6 +205,7 @@
       function pointB(){
         vm.arrival = !vm.arrival;
         vm.conections = [];
+        vm.way = '';
 
         if(isValidOption()){
           setStatus();
