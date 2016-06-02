@@ -75,35 +75,6 @@
           }
         });
       });
-      /*agencyIDB().then(function(agency) {
-        count(agency).then(function(qtd) {
-          if(qtd == 0){
-            jsonFactory.agency().then(function(data) {
-              agency.put(data);
-            });
-          }
-        });
-      });
-
-      stopIDB().then(function(stop) {
-        count(stop).then(function(qtd) {
-          if(qtd == 0){
-            jsonFactory.stops().then(function(data) {
-              stop.put(data);
-            });
-          }
-        });
-      });
-
-      stopTimesIDB().then(function(stop_times) {
-        count(stop_times).then(function(qtd) {
-          if(qtd == 0){
-            jsonFactory.stop_times().then(function(data) {
-              stop_times.put(data);
-            });
-          }
-        });
-      });*/
     };
 
     function isStop(stop, array){
@@ -115,44 +86,8 @@
 
       if(stop.stop_id > 100000)
         flag = false;
-        
+
       return flag;
-    };
-
-    function getStops(){
-      return new Promise(function(resolve, reject) {
-
-        stopIDB().then(function(store) {
-          var onsuccess = function(data){
-            resolve(data[0]);
-          }
-          var onerror = function(error){
-            $rootScope.notifications.push({
-              message: 'Was not possible to fetch stops',
-              type: 'btn-danger',
-              class: 'fa fa-train'
-            });
-          }
-
-          store.getAll(onsuccess, onerror);
-        });
-      });
-    };
-
-    function getObjectData(store) {
-        var onsuccess = function(data){
-          return data[0];
-        };
-
-        var onerror = function(error){
-          $rootScope.notifications.push({
-            message: 'Was not possible to fetch data',
-            type: 'btn-danger',
-            class: 'fa fa-train'
-          });
-        };
-
-        store.getAll(onsuccess, onerror);
     };
 
     return {
@@ -160,9 +95,7 @@
       getObjectStops      : stopIDB,
       getObjectAgency     : agencyIDB,
       getObjectStopTimes  : stopTimesIDB,
-      populateIDB         : populateIDB,
-      getStops            : getStops,
-      getObjectData       : getObjectData
+      populateIDB         : populateIDB
     };
   });
 })();

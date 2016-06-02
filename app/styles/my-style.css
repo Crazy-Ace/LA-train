@@ -18,11 +18,18 @@
 .my-title{
   font-family: 'Rancho', cursive;
 }
+@media (min-width: 375px) and (max-width: 767px) {
+  .my-title-large {
+    display: none;
+  }
+}
 
-.my-title-large{
-  font-family: 'Rancho', cursive;
-  font-size: xx-large;
-  margin-left: 25%;
+@media (min-width: 768px){
+  .my-title-large{
+    font-family: 'Rancho', cursive;
+    font-size: xx-large;
+    margin-left: 25%;
+  }
 }
 
 .app>.header-container.header-fixed+.main-container {
