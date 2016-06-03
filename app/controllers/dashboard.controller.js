@@ -223,7 +223,7 @@
           vm.conections = [];
           vm.way = '';
         }
-        if(isValidOption()){
+        if(!vm.departure & isValidOption()){
           setStatus();
           getConections();
           north();

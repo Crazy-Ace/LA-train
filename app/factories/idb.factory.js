@@ -84,6 +84,9 @@
           flag = false;
       });
 
+      if(stop.stop_id % 2 == 0)
+        flag = false;
+
       if(stop.stop_id > 100000)
         flag = false;
 
