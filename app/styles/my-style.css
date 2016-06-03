@@ -13,11 +13,21 @@
 
 .ui-timline-container {
     padding: 25px;
+    margin-bottom: 20px;
 }
 
 .my-title{
   font-family: 'Rancho', cursive;
 }
+
+.btn-no-focus:focus {
+    outline: none !important;
+}
+
+.btn-filter {
+    MARGIN-BOTTOM: 20px;
+}
+
 @media (min-width: 375px) and (max-width: 767px) {
   .my-title-large {
     display: none;

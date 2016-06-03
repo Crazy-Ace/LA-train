@@ -1,6 +1,6 @@
 <div class="page">
 
-  <div class="ui-timline-container col-md-6 col-sm-12">
+  <div class="ui-timline-container col-md-8 col-sm-12">
       <section class="ui-timeline">
         <article class="tl-item">
             <div class="tl-body">
@@ -81,17 +81,34 @@
   <br>
   <br>
 
-  <div class="text-center">
-    <h4>{{vm.way}}</h4>
-  </div>
-
   <div class="col-md-4 col-sm-12">
+
+    <div class="text-center btn-filter" ng-show="vm.stationA && vm.stationB">
+      <h4>{{vm.way}}</h4>
+
+      <div class="btn-group">
+          <button type="button"
+                  ng-class="{'active': vm.category == 'weekday'}"
+                  class="btn btn-line-danger btn-no-focus"
+                  ng-click="vm.setCategory('weekday')">Weekday</button>
+          <button type="button"
+                  ng-class="{'active': vm.category == 'weekend'}"
+                  class="btn btn-line-danger btn-no-focus"
+                  ng-click="vm.setCategory('weekend')">Weekend</button>
+          <button type="button"
+                  ng-class="{'active': vm.category == 'shuttle'}"
+                  class="btn btn-line-danger btn-no-focus"
+                  ng-click="vm.setCategory('shuttle')">Shuttle</button>
+      </div>
+    </div>
+
     <table class="table">
           <tbody ng-show="vm.stationA && vm.stationB">
-              <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'">
+              <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'" ng-show="stop_t.category == vm.category">
                   <td>
                     <span class="label label-info">
-                      <i class="fa fa-train" aria-hidden="true"></i>&nbsp;{{stop_t.train}}
+                      <i class="fa fa-bus" aria-hidden="true" ng-show="vm.category == 'shuttle'"></i>
+                      <i class="fa fa-train" aria-hidden="true" ng-show="vm.category == 'weekday' || vm.category == 'weekend'"></i>&nbsp;{{stop_t.train}}
                     </span>
                   </td>
                   <td>

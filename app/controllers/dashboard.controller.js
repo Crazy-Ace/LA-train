@@ -16,6 +16,8 @@
       vm.pointB = pointB;
       vm.stops = [];
       vm.stop_times = [];
+      vm.setCategory = setCategory;
+      vm.category = 'weekday';
 
       activate();
 
@@ -129,11 +131,12 @@
           loop2: for (var j = 0; j < time_b.length; j++){
             if(isValidTrip(time_a[i].trip_id, time_b[j].trip_id)){
               time = {
-                train: time_a[i].trip_id,
-                arrival: formatAMPM(time_a[i].departure_time),
-                departure: formatAMPM(time_b[j].arrival_time),
-                duration: duration(time_a[i].departure_time, time_b[j].arrival_time),
-                position: toSeconds(time_a[i].departure_time)
+                train     : time_a[i].trip_id,
+                arrival   : formatAMPM(time_a[i].departure_time),
+                departure : formatAMPM(time_b[j].arrival_time),
+                duration  : duration(time_a[i].departure_time, time_b[j].arrival_time),
+                position  : toSeconds(time_a[i].departure_time),
+                category  : getCategory(time_a[i].trip_id)
               };
 
               vm.stop_times_filtered.push(time);
@@ -142,6 +145,20 @@
           }
         }
       };
+
+      function setCategory(category){
+        vm.category = category;
+      }
+
+      function getCategory(trip){
+        if(trip < 400) {
+          return 'weekday';
+        }else if(trip >= 400) {
+          return 'weekend';
+        }else{
+          return 'shuttle';
+        }
+      }
 
       function formatAMPM(time) {
         var hours = parseInt(time.substr(0, 2));
@@ -164,7 +181,7 @@
       function isValidTrip(trip_a, trip_b){
         var flag;
 
-        if((trip_a == trip_b) && (trip_a <= 999))
+        if((trip_a == trip_b))
           flag = true;
         else
           flag = false;
@@ -201,9 +218,11 @@
 
       function pointA() {
         vm.departure = !vm.departure;
-        vm.conections = [];
-        vm.way = '';
 
+        if(!vm.departure){
+          vm.conections = [];
+          vm.way = '';
+        }
         if(isValidOption()){
           setStatus();
           getConections();
@@ -215,10 +234,13 @@
 
       function pointB(){
         vm.arrival = !vm.arrival;
-        vm.conections = [];
-        vm.way = '';
 
-        if(isValidOption()){
+        if(!vm.arrival){
+          vm.way = '';
+          vm.conections = [];
+        }
+
+        if(!vm.arrival & isValidOption()){
           setStatus();
           getConections();
           north();
