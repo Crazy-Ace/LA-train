@@ -2,7 +2,9 @@
 Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegree. It's a responsive app with IndexedDB and Service Worker. Offline first and Mobile first.
 
 ##Demo
-- You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).
+- You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).  
+
+![image](https://drive.google.com/file/d/1DHGPn1EITSwvkpeT_e14sX5YtCfoRhrKLg/view?usp=sharing)
 
 ##Technologies:
 [IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)  
