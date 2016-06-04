@@ -1,14 +1,14 @@
-<header class="top-header clearfix" ng-controller="SharedCtrl as vm">
+<header class="top-header clearfix" ng-controller="SharedCtrl">
 
     <!-- Logo -->
     <div class="logo"
-         ng-class="{ 'bg-dark': ['11','31'].indexOf(vm.main.skin) >= 0,
-                     'bg-white': vm.main.skin === '21',
-                     'bg-primary': ['12','22','32'].indexOf(vm.main.skin) >= 0,
-                     'bg-success': ['13','23','33'].indexOf(vm.main.skin) >= 0,
-                     'bg-info-alt': ['14','24','34'].indexOf(vm.main.skin) >= 0,
-                     'bg-warning': ['15','25','35'].indexOf(vm.main.skin) >= 0,
-                     'bg-danger': ['16','26','36'].indexOf(vm.main.skin) >= 0,
+         ng-class="{ 'bg-dark': ['11','31'].indexOf(main.skin) >= 0,
+                     'bg-white': main.skin === '21',
+                     'bg-primary': ['12','22','32'].indexOf(main.skin) >= 0,
+                     'bg-success': ['13','23','33'].indexOf(main.skin) >= 0,
+                     'bg-info-alt': ['14','24','34'].indexOf(main.skin) >= 0,
+                     'bg-warning': ['15','25','35'].indexOf(main.skin) >= 0,
+                     'bg-danger': ['16','26','36'].indexOf(main.skin) >= 0,
                     }">
         <a href="#/dashboard">
             <span class="fa fa-subway"></span>
@@ -28,15 +28,15 @@
                     <ul class="list-group">
                         <li class="list-group-item">
                             <p>Additional</p>
-                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="vm.main.fixedHeader"><span>Fixed Top Header</span></label>
+                            <label class="ui-checkbox"><input name="checkbox1" type="checkbox" value="option1" ng-model="main.fixedHeader"><span>Fixed Top Header</span></label>
                             <br>
                         </li>
                         <li class="list-group-item">
                             <p>
                                 <span>Page Transition: </span>
                                 <span class="space"></span>
-                                <select ng-model="vm.main.pageTransition"
-                                        ng-options="ageTransitionOpt.name for ageTransitionOpt in vm.pageTransitionOpts"></select>
+                                <select ng-model="main.pageTransition"
+                                        ng-options="ageTransitionOpt.name for ageTransitionOpt in pageTransitionOpts"></select>
                             </p>
                         </li>
                     </ul>
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="11" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="11" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-dark item-header"></span>
@@ -60,7 +60,7 @@
                                 </label>
 
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="12" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="12" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-primary item-header"></span>
@@ -69,7 +69,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="13" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="13" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-success item-header"></span>
@@ -78,7 +78,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="14" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="14" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-info-alt item-header"></span>
@@ -87,7 +87,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="15" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="15" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-warning item-header"></span>
@@ -96,7 +96,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="16" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="16" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-danger item-header"></span>
@@ -107,7 +107,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="21" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="21" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-white item-header"></span>
@@ -116,7 +116,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="22" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="22" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-primary item-header"></span>
@@ -125,7 +125,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="23" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="23" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-success item-header"></span>
@@ -134,7 +134,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="24" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="24" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-info-alt item-header"></span>
@@ -143,7 +143,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="25" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="25" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-warning item-header"></span>
@@ -152,7 +152,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="26" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="26" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-danger item-header"></span>
@@ -163,7 +163,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="31" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="31" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-dark item-header"></span>
@@ -172,7 +172,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="32" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="32" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-primary item-header"></span>
@@ -181,7 +181,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="33" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="33" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-success item-header"></span>
@@ -190,7 +190,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="34" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="34" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-info-alt item-header"></span>
@@ -199,7 +199,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="35" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="35" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-warning item-header"></span>
@@ -208,7 +208,7 @@
                                     </span>
                                 </label>
                                 <label class="skin-check">
-                                    <input type="radio" name="skin" value="36" ng-model="vm.main.skin">
+                                    <input type="radio" name="skin" value="36" ng-model="main.skin">
                                     <span class="skin-item bg-body">
                                         <span class="overlay"><span class="glyphicon glyphicon-ok"></span></span>
                                         <span class="bg-danger item-header"></span>
@@ -244,7 +244,10 @@
                       </span>
                     </div>
                     <div class="panel-footer">
-                        Function for testing service worker
+                      <span class="label label-danger">NOT working!</span>
+                      <br>
+                      <br>
+                      <span class="label label-info">This will be a feature to test service worker.</span>
                     </div>
                 </div>
             </li>

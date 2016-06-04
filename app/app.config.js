@@ -7,7 +7,7 @@
     //Service Worker
     if ('serviceWorker' in navigator) {
       $rootScope.notifications.push({
-        message: 'This browser support Service Worker',
+        message: 'Your Service Worker is OKAY',
         type: 'btn-success',
         class: 'fa fa-shield'
       });
@@ -79,7 +79,7 @@
 
     } else {
       $rootScope.notifications.push({
-        message: 'This browser does NOT support Service Worker',
+        message: 'There is NO Service Worker',
         type: 'btn-danger',
         class: 'fa fa-shield'
       });
@@ -88,13 +88,13 @@
 
     if (!("indexedDB" in window)){
       $rootScope.notifications.push({
-        message: 'This browser does NOT support IndexedDB',
+        message: 'There is NO IndexedDB',
         type: 'btn-danger',
         class: 'fa fa-database'
       });
     }else{
       $rootScope.notifications.push({
-        message: 'This browser support IndexedDB',
+        message: 'Your IndexedDB is OKAY',
         type: 'btn-success',
         class: 'fa fa-database'
       });

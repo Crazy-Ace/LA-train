@@ -77,27 +77,6 @@
         });
       };
 
-      function getConectionsTime(){
-        var way;
-
-        if(vm.stationA.status == "north")way = 0;
-        if(vm.stationA.status == "south")way = 1;
-
-        for (var j = 0; j < vm.stop_times.length; j++){
-          if(vm.stop_times_filtered[0].train == vm.stop_times[j].trip_id){
-            for (var i = 0; i < vm.conections.length; i++){
-              if((vm.conections[i].stop_id + way) == vm.stop_times[j].stop_id){
-                if(i == 0)
-                  vm.conections[i].duration = duration(vm.stop_times[j].arrival_time, vm.stop_times[j+1].arrival_time);
-                else
-                  vm.conections[i].duration = duration(vm.stop_times[j].arrival_time, vm.stop_times[j+1].arrival_time) + vm.conections[i-1].duration;
-
-              }
-            }
-          }
-        }
-      };
-
       function getStops(){
         var ref_stop = firebase.database().ref('stops');
 
@@ -136,7 +115,8 @@
                 departure : formatAMPM(time_b[j].arrival_time),
                 duration  : duration(time_a[i].departure_time, time_b[j].arrival_time),
                 position  : toSeconds(time_a[i].departure_time),
-                category  : getCategory(time_a[i].trip_id)
+                category  : getCategory(time_a[i].trip_id),
+                trip      : time_a[i].trip_id
               };
 
               vm.stop_times_filtered.push(time);
@@ -228,7 +208,6 @@
           getConections();
           north();
           getTimes();
-          //getConectionsTime();
         }
       };
 
@@ -245,7 +224,6 @@
           getConections();
           north();
           getTimes();
-          //getConectionsTime();
         }
       };
 

@@ -37,7 +37,7 @@
         <article class="tl-item alt" ng-repeat="conection in vm.conections">
             <div class="tl-body">
                 <div class="tl-entry time-btn">
-                    <div class="tl-time"><span>{{conection.stop_name}} <!--({{ conection.duration }}min)--></span></div>
+                    <div class="tl-time"><span>{{conection.stop_name}}</span></div>
                     <div class="tl-icon btn-icon-round btn-icon btn-icon-thin btn-danger"><i class="fa fa-train"></i></div>
                 </div>
             </div>
@@ -103,25 +103,34 @@
     </div>
 
     <table class="table">
-          <tbody ng-show="vm.stationA && vm.stationB">
-              <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'" ng-show="stop_t.category == vm.category">
-                  <td>
-                    <span class="label label-info">
-                      <i class="fa fa-bus" aria-hidden="true" ng-show="vm.category == 'shuttle'"></i>
-                      <i class="fa fa-train" aria-hidden="true" ng-show="vm.category == 'weekday' || vm.category == 'weekend'"></i>&nbsp;{{stop_t.train}}
-                    </span>
-                  </td>
-                  <td>
-                    <strong><span>{{ stop_t.arrival | limitTo : 5 }}</span></strong>
-                    <span class="am-pm">{{ stop_t.arrival | limitTo : 2 : 5}}</span>
-                  </td>
-                  <td><span class="trip-duration">{{ stop_t.duration}}min</span></td>
-                  <td>
-                    <strong><span>{{ stop_t.departure | limitTo : 5 }}</span></strong>
-                    <span class="am-pm">{{ stop_t.departure | limitTo : 2 : 5}}</span>
-                  </td>
-              </tr>
-          </tbody>
+        <thead>
+          <tr>
+            <th ng-show="vm.category == 'weekday' || vm.category == 'weekend'">Train</th>
+            <th ng-show="vm.category == 'shuttle'">Bus</th>
+            <th>Start</th>
+            <th></th>
+            <th>Arrival</th>
+          </tr>
+        </thead>
+        <tbody ng-show="vm.stationA && vm.stationB">
+          <tr ng-repeat="stop_t in vm.stop_times_filtered | orderBy:'position'" ng-show="stop_t.category == vm.category">
+              <td>
+                <span class="label label-info">
+                  <i class="fa fa-bus" aria-hidden="true" ng-show="vm.category == 'shuttle'"></i>
+                  <i class="fa fa-train" aria-hidden="true" ng-show="vm.category == 'weekday' || vm.category == 'weekend'"></i>&nbsp;{{stop_t.train}}
+                </span>
+              </td>
+              <td>
+                <strong><span>{{ stop_t.arrival | limitTo : 5 }}</span></strong>
+                <span class="am-pm">{{ stop_t.arrival | limitTo : 2 : 5}}</span>
+              </td>
+              <td><span class="trip-duration">{{ stop_t.duration}}min</span></td>
+              <td>
+                <strong><span>{{ stop_t.departure | limitTo : 5 }}</span></strong>
+                <span class="am-pm">{{ stop_t.departure | limitTo : 2 : 5}}</span>
+              </td>
+          </tr>
+        </tbody>
       </table>
   </div>
 </div>
