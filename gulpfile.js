@@ -24,7 +24,7 @@ gulp.task('minify-css', function() {
                    'app/styles/ui.css',
                    'app/styles/main.css',
                    'app/styles/my-style.css'])
-    .pipe(concatCss('styles-1.0.1.min.css'))
+    .pipe(concatCss('styles-1.0.2.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css'));
 
@@ -35,6 +35,11 @@ gulp.task('json', function() {
             'app/gtfs/stops.json',
             'app/gtfs/stop_times.json'])
       .pipe(gulp.dest('dist/gtfs'));
+});
+
+gulp.task('images', function() {
+  gulp.src(['app/images/**/*'])
+      .pipe(gulp.dest('dist/images'));
 });
 
 gulp.task('fonts', function() {
@@ -92,17 +97,6 @@ gulp.task('generate-sw-dev', function(callback) {
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
     staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}',
-                    //  'app/controllers/**/*.js',
-                    //  'app/factories/**/*.js',
-                    //  'app/funcs/**/*.js',
-                    //  'app/images/**/*.png',
-                    //  'app/pages/**/*.html',
-                    //  'app/styles/**/*.css',
-                    //  'app/app.config.js',
-                    //  'app/app.js',
-                    //  'app/app.routes.js',
-                    //  'app/index.htlm',
-                    //  'app/favicon.ico',
                      'bower_components/font-awesome/**/*',
                      'bower_components/jquery/dist/jquery.min.js',
                      'bower_components/angular/angular.min.js',
@@ -121,13 +115,13 @@ gulp.task('generate-sw-dist', function(callback) {
   var rootDir = 'dist';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}'],
     stripPrefix: rootDir
   }, callback);
 });
 
 gulp.task('server', ['serve']);
-gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts']);
+gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts', 'images']);
 
 //TODO htmlbuild
 gulp.task('build', function () {
