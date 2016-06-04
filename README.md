@@ -8,7 +8,7 @@ Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegre
 You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).  
 
 ### Mobile  
-<img src="https://raw.githubusercontent.com/mortoni/LA-train/master/app/images/demo1.png" width="800" height="393" />  
+<img src="https://raw.githubusercontent.com/mortoni/LA-train/master/app/images/demo1.png" width="393" height="800" />  
 ### Desktop  
 ![image](https://raw.githubusercontent.com/mortoni/LA-train/master/app/images/demo2.png)  
 
