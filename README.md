@@ -4,7 +4,7 @@ Public Transportation App, Project 2 from Udacity Senior Web Developer Nanodegre
 ##Demo
 - You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).  
 
-![image](https://drive.google.com/file/d/1DHGPn1EITSwvkpeT_e14sX5YtCfoRhrKLg/view?usp=sharing)
+![image](https://raw.githubusercontent.com/mortoni/LA-train/master/app/images/bg-pattern/bg-pattern2.png)
 
 ##Technologies:
 [IndexedDB](https://developer.mozilla.org/en/docs/Web/API/IndexedDB_API)  
