@@ -1,6 +1,11 @@
 (function () {
 
-  angular.module('app').run(function ($rootScope, $location, idbInit, $http) {
+  angular.module('app').run(function ($rootScope, $window) {
+    $rootScope.online = navigator.onLine;
+
+    if($rootScope.online)
+      initFirebase();
+
     if(!$rootScope.notifications)
       $rootScope.notifications = [];
 
@@ -100,7 +105,17 @@
       });
     }
 
-    //initFirebase();
+    $window.addEventListener("offline", function() {
+      $rootScope.$apply(function() {
+        $rootScope.online = false;
+      });
+    }, false);
+
+    $window.addEventListener("online", function() {
+      $rootScope.$apply(function() {
+        $rootScope.online = true;
+      });
+    }, false);
 
     function initFirebase(){
       // Initialize Firebase
@@ -111,6 +126,6 @@
         storageBucket: "udacitytwo.appspot.com",
       };
       firebase.initializeApp(config);
-    }
+    };
   });
 })();

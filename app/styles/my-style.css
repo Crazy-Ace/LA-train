@@ -13,7 +13,7 @@
 
 .ui-timline-container {
     padding: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .my-title{
@@ -31,6 +31,11 @@
 @media (min-width: 375px) and (max-width: 767px) {
   .my-title-large {
     display: none;
+  }
+
+  .ui-timline-container {
+      margin-bottom: 20px;
+      padding-right: 0px;
   }
 }
 
