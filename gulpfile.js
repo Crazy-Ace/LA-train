@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     concatCss = require('gulp-concat-css'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
+    htmlmin = require('gulp-htmlmin'),
     htmlbuild = require('gulp-htmlbuild');
 
 gulp.task('default', function() {
@@ -14,7 +15,9 @@ gulp.task('default', function() {
 });
 
 gulp.task('pages', function() {
-  gulp.src(['app/pages/**/*']).pipe(gulp.dest('dist/pages'));
+  gulp.src(['app/pages/**/*'])
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest('dist/pages'));
 });
 
 gulp.task('minify-css', function() {
@@ -23,8 +26,9 @@ gulp.task('minify-css', function() {
                    'app/styles/bootstrap.css',
                    'app/styles/ui.css',
                    'app/styles/main.css',
-                   'app/styles/my-style.css'])
-    .pipe(concatCss('styles-1.0.2.min.css'))
+                   'app/styles/my-style.css',
+                   'app/styles/dist-font-face.css'])
+    .pipe(concatCss('styles-1.0.3.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css'));
 
@@ -79,7 +83,7 @@ gulp.task('serve', function() {
         browser: "google chrome canary"
     });
 
-    console.log('## servidor iniciado ##');
+    console.log('## server started ##');
 
     gulp.watch('dev/**/*').on('change', browserSync.reload);
     gulp.watch('app/**/*').on('change', browserSync.reload);
@@ -90,6 +94,17 @@ gulp.task('serve', function() {
             .pipe(jshint())
             .pipe(jshint.reporter(jshintStylish));
     });
+});
+
+gulp.task('serve:dist', function() {
+    browserSync.init({
+        server: {
+            baseDir: ["dist"],
+            index: "index.html"
+        }
+    });
+
+    console.log('## production server started ##');
 });
 
 gulp.task('generate-sw-dev', function(callback) {
