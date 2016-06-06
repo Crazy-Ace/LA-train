@@ -26,8 +26,7 @@ gulp.task('minify-css', function() {
                    'app/styles/bootstrap.css',
                    'app/styles/ui.css',
                    'app/styles/main.css',
-                   'app/styles/my-style.css',
-                   'app/styles/dist-font-face.css'])
+                   'app/styles/my-style.css'])
     .pipe(concatCss('styles-1.0.3.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css'));
@@ -111,8 +110,10 @@ gulp.task('generate-sw-dev', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}',
+    // staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}',
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico}',
                      'bower_components/font-awesome/**/*',
+                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                      'bower_components/jquery/dist/jquery.min.js',
                      'bower_components/angular/angular.min.js',
                      'bower_components/angular-route/angular-route.min.js',
@@ -121,7 +122,13 @@ gulp.task('generate-sw-dev', function(callback) {
                      'bower_components/firebase/firebase.js',
                      'bower_components/angularfire/dist/angularfire.js',
                      'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                     'bower_components/idbwrapper/idbstore.min.js'],
+                     'bower_components/idbwrapper/idbstore.min.js',
+                     'bower_components/font-awesome/fonts/fontawesome-webfont.woff2',
+                     'bower_components/font-awesome/fonts/fontawesome-webfont.woff',
+                     'bower_components/font-awesome/fonts/fontawesome-webfont.ttf',
+                     'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
+                     'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+                     'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'],
     stripPrefix: rootDir
   }, callback);
 });
