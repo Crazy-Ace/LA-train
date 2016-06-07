@@ -21,7 +21,7 @@ You can see a demo [here](https://udacitytwo.firebaseapp.com/#/dashboard).
 JavaScript  
 HTML5  
 CSS3  
-Gulp 
+Gulp
 BootStrap 3  
 JQuery  
 
@@ -31,8 +31,8 @@ You must download and install it [here](https://nodejs.org/en/).
 
 ##Running
 Go to root folder of project, open your terminal and then follow steps:  
-
-- Installing and store dependencies:
+###Development Server  
+- Installing dependencies:
 ```{r, engine='bash', count_lines}
 $ npm install
 ```
@@ -42,9 +42,19 @@ $ npm install
 $ bower install
 ```
 
-- Running server task:  
+- Running server:  
 ```{r, engine='bash', count_lines}
-$ npm run gulp server
+$ npm run gulp server:dev
+```
+###Distribution Server  
+- Generate distribution:  
+```{r, engine='bash', count_lines}
+$ gulp dist
+```
+
+- Running server:  
+```{r, engine='bash', count_lines}
+$ npm run gulp server:dist
 ```
 
 ##Service Worker

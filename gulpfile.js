@@ -21,12 +21,11 @@ gulp.task('pages', function() {
 });
 
 gulp.task('minify-css', function() {
-  return gulp.src(['http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic',
-                   'bower_components/font-awesome/css/font-awesome.min.css',
-                   'app/styles/bootstrap.css',
-                   'app/styles/ui.css',
+  return gulp.src(['bower_components/font-awesome/css/font-awesome.min.css',
+                   'bower_components/bootstrap/dist/css/bootstrap.min.css',
                    'app/styles/main.css',
-                   'app/styles/my-style.css'])
+                   'app/styles/my-style.css',
+                   'app/styles/dist-font-face.css'])
     .pipe(concatCss('styles-1.0.3.min.css'))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css'));
@@ -40,13 +39,13 @@ gulp.task('json', function() {
       .pipe(gulp.dest('dist/gtfs'));
 });
 
-gulp.task('images', function() {
-  gulp.src(['app/images/**/*'])
-      .pipe(gulp.dest('dist/images'));
-});
-
 gulp.task('fonts', function() {
-  gulp.src(['bower_components/font-awesome/fonts/**/*'])
+  gulp.src(['bower_components/font-awesome/fonts/fontawesome-webfont.woff2',
+            'bower_components/font-awesome/fonts/fontawesome-webfont.woff',
+            'bower_components/font-awesome/fonts/fontawesome-webfont.ttf',
+            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2',
+            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff',
+            'bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf'])
       .pipe(gulp.dest('dist/fonts'));
 });
 
@@ -70,7 +69,7 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('dist/js'));
 });
 
-gulp.task('serve', function() {
+gulp.task('server:dev', function() {
     browserSync.init({
         server: {
             baseDir: ["app"],
@@ -95,7 +94,7 @@ gulp.task('serve', function() {
     });
 });
 
-gulp.task('serve:dist', function() {
+gulp.task('server:dist', function() {
     browserSync.init({
         server: {
             baseDir: ["dist"],
@@ -106,12 +105,11 @@ gulp.task('serve:dist', function() {
     console.log('## production server started ##');
 });
 
-gulp.task('generate-sw-dev', function(callback) {
+gulp.task('sw-dev', function(callback) {
   var rootDir = 'app';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    // staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}',
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico}',
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,ico}',
                      'bower_components/font-awesome/**/*',
                      'bower_components/bootstrap/dist/css/bootstrap.min.css',
                      'bower_components/jquery/dist/jquery.min.js',
@@ -133,59 +131,13 @@ gulp.task('generate-sw-dev', function(callback) {
   }, callback);
 });
 
-gulp.task('generate-sw-dist', function(callback) {
+gulp.task('sw-dist',['compress'], function(callback) {
   var rootDir = 'dist';
 
   swPrecache.write(path.join(rootDir, 'service-worker.js'), {
-    staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,ico,ttf,woff,woff2,eot,svg}'],
+    staticFileGlobs: [rootDir + '/**/*.{js,html,css,ico,ttf,woff,woff2,eot,svg}'],
     stripPrefix: rootDir
   }, callback);
 });
 
-gulp.task('server', ['serve']);
-gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts', 'images']);
-
-//TODO htmlbuild
-gulp.task('build', function () {
-
-  gulp.src(['dist/index.html'])
-    .pipe(htmlbuild({
-      // build js with preprocessor
-      js: htmlbuild.preprocess.js(function (block) {
-
-        block.pipe(gulpSrc())
-          .pipe(jsBuild);
-
-        block.end('js/concat.js');
-
-      }),
-
-      // build css with preprocessor
-      css: htmlbuild.preprocess.css(function (block) {
-
-        block.pipe(gulpSrc())
-          .pipe(cssBuild);
-
-        block.end('css/concat.css');
-
-      }),
-
-      // remove blocks with this target
-      remove: function (block) {
-        block.end();
-      },
-
-      // add a template with this target
-      template: function (block) {
-        es.readArray([
-          '<!--',
-          '  processed by htmlbuild (' + block.args[0] + ')',
-          '-->'
-        ].map(function (str) {
-          return block.indent + str;
-        })).pipe(block);
-      }
-    }))
-    .pipe(gulp.dest('./build'));
-
-});
+gulp.task('dist', ['minify-css', 'compress', 'pages', 'json', 'fonts', 'sw-dist']);

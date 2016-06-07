@@ -22,8 +22,62 @@
       activate();
 
       function activate(){
+        var stopObject = idbInit.getObjectStops();
+        var stop_timesObject = idbInit.getObjectStopTimes();
+
+        firebase.database().ref(".info/connected").on("value", function(snap) {
+          if (snap.val() === true) { //online
+
+            Promise.all([stopObject, stop_timesObject]).then(function(stores) {
+              idbInit.populateIDB(stores[0], 'stops');
+              idbInit.populateIDB(stores[1], 'stop_times');
+            });
+
+            firebase.database().ref('stops').on('value', function(snapshot) {
+              snapshot.val().forEach(function(stop) {
+                stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+                if(idbInit.isStop(stop, vm.stops))
+                  vm.stops.push(stop);
+              });
+            });
+
+            firebase.database().ref('stop_times').on('value', function(snapshot) {
+              vm.stop_times = snapshot.val();
+            });
+          } else { //offline
+            Promise.all([stopObject, stop_timesObject]).then(function(stores) {
+              var p1 = idbInit.populateIDB(stores[0], 'stops');
+              var p2 = idbInit.populateIDB(stores[1], 'stop_times');
+
+              //data feed offline
+              Promise.all([p1, p2]).then(function(idbs) {
+
+                stores[0].getAll(function(data) {
+                  data[0].forEach(function(stop){
+                    stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
+                    if(idbInit.isStop(stop, vm.stops))
+                      vm.stops.push(stop);
+                  });
+                });
+
+                stores[1].getAll(function(data) {
+                  data[0].forEach(function(stopTimes){
+                      vm.stop_times.push(stopTimes);
+                  });
+                });
+
+              });
+
+            });
+          }
+        });
+
+
+
+
+
         //data feed online
-        if($rootScope.online){
+        /*if($rootScope.online){
           firebase.database().ref('stops').on('value', function(snapshot) {
             snapshot.val().forEach(function(stop) {
               stop.stop_name = stop.stop_name.match(/- (.*) STATION/)[1];
@@ -64,10 +118,7 @@
 
             });
           }
-        });
-      };
-
-      function getData(){
+        });*/
       };
 
       function disableOption(stop){
